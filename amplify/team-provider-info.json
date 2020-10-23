@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pickupactiv-dev-193505-authRole",
+      "UnauthRoleArn": "arn:aws:iam::074808838332:role/amplify-pickupactiv-dev-193505-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::074808838332:role/amplify-pickupactiv-dev-193505-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pickupactiv-dev-193505-deployment",
+      "UnauthRoleName": "amplify-pickupactiv-dev-193505-unauthRole",
+      "StackName": "amplify-pickupactiv-dev-193505",
+      "StackId": "arn:aws:cloudformation:us-east-1:074808838332:stack/amplify-pickupactiv-dev-193505/39780c90-14bf-11eb-bba3-0e2470ba0d5b",
+      "AmplifyAppId": "d3oo9vyk0aa8nj"
+    },
+    "categories": {
+      "auth": {
+        "pickupactivc1695a54": {}
+      }
+    }
+  }
+}
