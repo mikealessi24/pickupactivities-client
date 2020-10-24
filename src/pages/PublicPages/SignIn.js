@@ -13,6 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+import { Auth } from "aws-amplify";
+import { navigate } from "@reach/router";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -34,84 +37,145 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   avatar: {
-    margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  text: {
+    backgroundColor: "#333333",
+  },
+  input: {
+    color: "white",
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-export default function SignIn() {
+export default function SignIn({ setSignedIn }) {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
+    <div style={style.page}>
+      <Container style={style.cont} component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form
+            style={style.form}
+            className={classes.form}
+            noValidate
+            onSubmit={(e) => {
+              e.preventDefault();
+              const username = e.target.elements.username.value;
+              const password = e.target.elements.password.value;
+              (async function () {
+                try {
+                  const user = await Auth.signIn(username, password);
+                  console.log(user);
+                  console.log(user.signInUserSession.idToken.jwtToken);
+                  //   dispatch(setSignedIn(user));
+
+                  setSignedIn(user);
+                  navigate("/home");
+                } catch (error) {
+                  alert("error sigining in", error);
+                }
+              })();
+            }}
           >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+            <TextField
+              InputProps={{
+                className: classes.input,
+              }}
+              className={classes.text}
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+            />
+            <TextField
+              className={classes.text}
+              InputProps={{
+                className: classes.input,
+              }}
+              variant="standard"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
+          </form>
+        </div>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
+    </div>
   );
 }
+
+//trying to imitate dark mode, want to add this to theme or global css
+
+const style = {
+  page: {
+    display: "flex",
+    alignItems: "center",
+    height: "100vh",
+
+    backgroundColor: "#0d0d0d",
+  },
+  cont: {
+    borderRadius: "3px",
+    height: "50%",
+    color: "white",
+    backgroundColor: "#262626",
+  },
+  form: {
+    color: "white",
+  },
+  text: {
+    color: "white",
+  },
+};

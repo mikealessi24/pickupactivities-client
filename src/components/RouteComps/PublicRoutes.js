@@ -12,13 +12,18 @@ export default function PublicRoutes({ setSignedIn }) {
     <div>
       <Router>
         <Landing path="/" />
-        <SignIn path="signin" />
+        <SignIn path="signin" setSignedIn={setSignedIn} />
         <SignUp
           path="signup"
           setUsername={setUsername}
           setPassword={setPassword}
         />
-        <ConfirmSignUp path="confirm" />
+        <ConfirmSignUp
+          path="confirm"
+          setSignedIn={setSignedIn}
+          username={username}
+          password={password}
+        />
       </Router>
     </div>
   );
