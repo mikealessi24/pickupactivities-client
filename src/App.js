@@ -24,7 +24,7 @@ function App() {
   return (
     <div>
       {signedIn ? (
-        <PrivateRoutes signedIn={signedIn} />
+        <PrivateRoutes setSignedIn={setSignedIn} signedIn={signedIn} />
       ) : (
         <PublicRoutes setSignedIn={setSignedIn} />
       )}

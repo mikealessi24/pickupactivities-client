@@ -83,16 +83,16 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
 
                   // const  await Auth.currentAuthenticatedUser());
 
-                  // await axios
-                  //   .post("http://localhost:4000/create-user", {
-                  //     token: idToken,
-                  //     avatar: "defaultAvatar/super-mario-run.jpg",
-                  //   })
-                  //   .then(() => {
-                  //     setSignedIn(currentUser);
-                  //     navigate("/home");
-                  //   })
-                  //   .catch((error) => console.log(error));
+                  await axios
+                    .post("http://localhost:4000/create-user", {
+                      token: idToken,
+                      avatar: "defaultAvatar/default-avi.png",
+                    })
+                    .then(() => {
+                      setSignedIn(currentUser);
+                      navigate("/home");
+                    })
+                    .catch((error) => console.log(error));
                 }
               } catch (error) {
                 console.log("error confirming sign up", error);

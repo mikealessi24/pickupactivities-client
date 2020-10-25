@@ -4,6 +4,7 @@ import SignIn from "../../pages/PublicPages/SignIn";
 import SignUp from "../../pages/PublicPages/SignUp";
 import ConfirmSignUp from "../../pages/PublicPages/ConfirmSignUp";
 import Landing from "../../pages/PublicPages/Landing";
+import NotFound from "../../pages/PublicPages/NotFound";
 
 export default function PublicRoutes({ setSignedIn }) {
   const [username, setUsername] = React.useState(undefined);
@@ -24,6 +25,7 @@ export default function PublicRoutes({ setSignedIn }) {
           username={username}
           password={password}
         />
+        <NotFound default />
       </Router>
     </div>
   );
