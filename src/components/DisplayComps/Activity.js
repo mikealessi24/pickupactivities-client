@@ -1,18 +1,18 @@
 import React from "react";
 import "../../style/activity.css";
 
-export default function Activity() {
+export default function Activity({ activity }) {
   return (
     <div className="activity-container">
       <div className="activity-title">
-        <h3>Basketball</h3>
+        <h3>{activity.title}</h3>
       </div>
 
       <div className="activity-content">
         <div className="activity-text">
-          <div>host</div>
-          <div>hosts avatar</div>
-          <div>2:00pm</div>
+          <div>{activity.host}</div>
+          <div>{activity.time}</div>
+          <div>{activity.date}</div>
           <div>location</div>
         </div>
         <div className="host-avatar">

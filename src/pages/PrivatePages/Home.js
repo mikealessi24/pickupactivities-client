@@ -6,10 +6,12 @@ import Activity from "../../components/DisplayComps/Activity";
 import Button from "@material-ui/core/Button";
 import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
+import MyModal from "../../components/DisplayComps/MyModal";
 
 export default function Home({ setSignedIn, signedIn }) {
   const [s3Avi, setS3Avi] = React.useState("");
   const [followerActiv, setFollowerActiv] = React.useState([]);
+  const [time, setTime] = React.useState("");
 
   async function signOut() {
     try {
@@ -42,28 +44,27 @@ export default function Home({ setSignedIn, signedIn }) {
         <Button onClick={() => signOut()}>Sign out</Button>
       </div>
       <div className="home-container">
-        <div className="home-left">
-          <div className="avi-cont">
-            <img src={s3Avi} alt="avatar" />
-          </div>
-          <div className="user-actions">
-            {/* could bring up all activities/games in any location */}
-            <Button onClick={() => navigate("/home")}>Home</Button>
-            <Button onClick={() => navigate("explore")}>Explore</Button>
-            <Button onClick={() => navigate("/profile")}>Profile</Button>
-            <div className="post-button">
-              <Button>Host an Activity</Button>
+        <div className="home-left-card">
+          <div className="home-left">
+            <div className="avi-cont">
+              <img src={s3Avi} alt="avatar" />
+            </div>
+            <div className="user-actions">
+              {/* could bring up all activities/games in any location */}
+              <Button onClick={() => navigate("/home")}>Home</Button>
+              <Button onClick={() => navigate("explore")}>Explore</Button>
+              <Button onClick={() => navigate("/profile")}>Profile</Button>
+              <div className="post-button">
+                <Button onClick={() => navigate("/host-activity")}>
+                  Host an Activity
+                </Button>
+                {/* need to decide on modal or new page */}
+                {/* <MyModal /> */}
+              </div>
             </div>
           </div>
         </div>
-        <div className="home-content">
-          <Activity />
-          <Activity />
-          <Activity />
-          <Activity />
-          <Activity />
-          <Activity />
-        </div>
+        <div className="home-content"></div>
         <div className="home-right">something needs to go here</div>
       </div>
     </div>
