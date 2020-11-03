@@ -12,8 +12,8 @@ export default function PrivateRoutes({ setSignedIn, signedIn }) {
       <Home path="/home" setSignedIn={setSignedIn} signedIn={signedIn} />
       <Explore path="/explore" signedIn={signedIn} />
       <Profile path="/profile" setSignedIn={setSignedIn} signedIn={signedIn} />
-      <Host path="/host-activity" signedIn={signedIn} />
       <NotFound default />
+      <Host path="/host-activity" signedIn={signedIn} />
     </Router>
   );
 }

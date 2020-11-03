@@ -61,7 +61,7 @@ export default function ActivMap({ activities }) {
     <>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={15}
+        zoom={14}
         center={center}
         options={options}
       >

@@ -5,7 +5,8 @@ import CompletedActiv from "../../components/DisplayComps/CompletedActiv";
 import Button from "@material-ui/core/Button";
 import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
-import { findAllByTestId } from "@testing-library/react";
+
+import EditProfile from "../../components/InputComps/EditProfile";
 
 export default function Profile({ setSignedIn, signedIn }) {
   const [s3Avi, setS3Avi] = React.useState("");
@@ -26,12 +27,8 @@ export default function Profile({ setSignedIn, signedIn }) {
     setClicked(true);
   }
 
-  function saveChanges() {
-    setClicked(false);
-    // make axios call to update a users fields
-  }
-
   React.useEffect(() => {
+    console.log("re-render");
     (async function () {
       try {
         console.log("getting user");
@@ -39,7 +36,8 @@ export default function Profile({ setSignedIn, signedIn }) {
         const response = await axios.post("http://localhost:4000/get-user", {
           token,
         });
-        setCurrentUser(response.data);
+        console.log("here is the response data", response.data);
+        setCurrentUser(response.data[0]);
       } catch (error) {
         console.log(error);
       }
@@ -86,22 +84,11 @@ export default function Profile({ setSignedIn, signedIn }) {
           </div>
         ) : (
           <div className="profile-left-move">
-            <div className="avi-cont">
-              <img src={s3Avi} alt="avatar" />
-            </div>
-            <div>
-              {currentUser && currentUser.firstname}{" "}
-              {currentUser && currentUser.lastname}
-            </div>
-            <div>{currentUser && currentUser.about}</div>
-            <div className="user-actions-profile-edit">
-              <div>profile edit fields</div>
-              <div>profile edit fields</div>
-              <div>profile edit fields</div>
-              <div>profile edit fields</div>
-            </div>
-            <Button onClick={() => saveChanges()}>Save Profile</Button>
-            <Button onClick={() => setClicked(false)}>Cancel</Button>
+            <EditProfile
+              signedIn={signedIn}
+              setClicked={setClicked}
+              s3Avi={s3Avi}
+            />
           </div>
         )}
 

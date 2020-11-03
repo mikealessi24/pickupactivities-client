@@ -86,7 +86,7 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
                   await axios
                     .post("http://localhost:4000/create-user", {
                       token: idToken,
-                      avatar: "defaultAvatar/default-avi.png",
+                      avatar: "defaultAvatar/goldenRet.png",
                     })
                     .then(() => {
                       setSignedIn(currentUser);
