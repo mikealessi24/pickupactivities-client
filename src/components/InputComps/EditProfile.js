@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import S3AvatarUpload from "../../components/InputComps/S3AvatarUpload";
 import axios from "axios";
-import "../../style/profileLayout.css";
+import "../../style/master.css";
 
 export default function EditProfile({ signedIn, setClicked, s3Avi }) {
   async function saveChanges(e) {
@@ -34,7 +34,7 @@ export default function EditProfile({ signedIn, setClicked, s3Avi }) {
         <img src={s3Avi} alt="avatar" />
       </div>
 
-      <div className="user-actions-profile-edit">
+      <div className="profile-editor">
         <form onSubmit={(e) => saveChanges(e)}>
           <label>
             Firstname: <input id="first" type="text" />

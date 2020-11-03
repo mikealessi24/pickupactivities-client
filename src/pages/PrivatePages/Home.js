@@ -1,5 +1,5 @@
 import React from "react";
-import "../../style/homeLayout.css";
+import "../../style/master.css";
 
 import axios from "axios";
 import Activity from "../../components/DisplayComps/Activity";
@@ -39,15 +39,15 @@ export default function Home({ setSignedIn, signedIn }) {
   }, []);
 
   return (
-    <div className="home-page">
+    <div className="main-page">
       <div className="header">
         <Button onClick={() => signOut()}>Sign out</Button>
       </div>
-      <div className="home-container">
-        <div className="home-left-card">
-          <div className="home-left">
+      <div className="main-container">
+        <div className="left-container">
+          <div className="left">
             <div className="avi-cont">
-              <img src={s3Avi} alt="avatar" />
+              <img src={s3Avi} alt="avatar image" />
             </div>
             <div className="user-actions">
               {/* could bring up all activities/games in any location */}
@@ -56,14 +56,16 @@ export default function Home({ setSignedIn, signedIn }) {
               <Button onClick={() => navigate("/profile")}>Profile</Button>
               <div className="post-button">
                 <Button onClick={() => navigate("/host-activity")}>
-                  Host a Pickup Asctivity
+                  Host a pickup game
                 </Button>
               </div>
             </div>
           </div>
         </div>
-        <div className="home-content"></div>
-        <div className="home-right">something needs to go here</div>
+        <div className="middle"></div>
+        <div className="right-container">
+          <div className="right"></div>
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../style/profileLayout.css";
+import "../../style/master.css";
 import axios from "axios";
 import CompletedActiv from "../../components/DisplayComps/CompletedActiv";
 import Button from "@material-ui/core/Button";
@@ -57,28 +57,30 @@ export default function Profile({ setSignedIn, signedIn }) {
   }, []);
 
   return (
-    <div className="profile-page">
-      <div className="profile-header">
+    <div className="main-page">
+      <div className="header">
         <Button onClick={() => signOut()}>Sign out</Button>
       </div>
-      <div className="profile-container">
+      <div className="main-container">
         {!clicked ? (
-          <div className="profile-left">
-            <div className="avi-cont">
-              <img src={s3Avi} alt="avatar" />
-            </div>
-            <div>
-              {currentUser && currentUser.firstname}{" "}
-              {currentUser && currentUser.lastname}
-            </div>
-            <div>{currentUser && currentUser.about}</div>
-            <div className="user-actions-profile">
-              {/* could bring up all activities/games in any location */}
-              <Button onClick={() => navigate("/home")}>Home</Button>
-              <Button onClick={() => navigate("explore")}>Explore</Button>
-              <Button onClick={() => expandEdit()}>Edit Profile</Button>
-              <div className="post-button">
-                <Button>Host an Activity</Button>
+          <div className="left-container">
+            <div className="left">
+              <div className="avi-cont">
+                <img src={s3Avi} alt="avatar" />
+              </div>
+              <div>
+                {currentUser && currentUser.firstname}{" "}
+                {currentUser && currentUser.lastname}
+              </div>
+              <div>{currentUser && currentUser.about}</div>
+              <div className="user-actions">
+                {/* could bring up all activities/games in any location */}
+                <Button onClick={() => navigate("/home")}>Home</Button>
+                <Button onClick={() => navigate("explore")}>Explore</Button>
+                <Button onClick={() => expandEdit()}>Edit Profile</Button>
+                <div className="post-button">
+                  <Button>Host an Activity</Button>
+                </div>
               </div>
             </div>
           </div>
@@ -93,7 +95,7 @@ export default function Profile({ setSignedIn, signedIn }) {
         )}
 
         {/* this could change from cards to a table , maybe? */}
-        <div className="profile-content">
+        <div className="profilePage-middle">
           <CompletedActiv />
           <CompletedActiv />
           <CompletedActiv />
