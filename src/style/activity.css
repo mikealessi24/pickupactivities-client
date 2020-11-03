@@ -1,33 +1,85 @@
 .activity-container {
-  border: 2px solid fuchsia;
-  width: 80%;
-  height: 35%;
+  border: 2px solid black;
+  width: 90%;
+  height: 30%;
   margin: 15px;
+  border-radius: 5px;
 }
 
 .activity-title {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #00bc66;
+}
+
+.activity-title button {
+  height: 20px;
 }
 
 .activity-content {
-  border: 1px solid black;
+  border: 1px solid rgb(121, 180, 62);
+  height: 150px;
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
+  padding: 5px;
 }
 
-.activity-text {
-  border: 1px solid black;
-  width: 80%;
+.text-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.address {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* expanded */
+.expanded-activity-cont {
+  border: 2px solid black;
+  width: 90%;
+  height: 97%;
+  margin: 15px;
+  border-radius: 5px;
+}
+
+.extra-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 72%;
+}
+
+.extra-info-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.extra-info button {
+  height: 20px;
+  margin: 5px;
 }
 
 .host-avatar {
-  border: 1px solid crimson;
-  height: 100px;
-  width: 100px;
+  height: 125px;
+  width: 125px;
+  margin: 5px;
 }
 
 .host-avatar img {
   height: 100%;
   width: 100%;
+  border-radius: 500px;
+  border: 1px solid black;
+}
+
+.info {
+  height: 100%;
+  width: 90%;
+  border: 1px solid black;
+  overflow-y: scroll;
 }

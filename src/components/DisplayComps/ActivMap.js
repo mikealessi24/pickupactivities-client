@@ -6,6 +6,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import MapStyle from "../DisplayComps/MapStyle";
+import { LocationProvider } from "@reach/router";
 
 //setting up the boiler plate googleMapApi connection
 const libraries = ["places"];
@@ -30,7 +31,7 @@ const options = {
   styles: MapStyle,
 };
 
-export default function ActivMap({ activities }) {
+export default function ActivMap({ activities, isClicked, selectedLoco }) {
   const [latitude, setLatitude] = React.useState(undefined);
   const [longitude, setLongitude] = React.useState(undefined);
 
@@ -68,9 +69,30 @@ export default function ActivMap({ activities }) {
         {activities.map((location) => {
           const lat = Number(location.latitude);
           const lng = Number(location.longitude);
-          return <Marker key={location.id} position={{ lat, lng }} />;
+          let icon;
+          if (location.id === selectedLoco) {
+            icon = "/icon2.svg";
+          } else {
+            icon = "/icon1.svg";
+          }
+          return (
+            <>
+              <Marker
+                key={location.id}
+                position={{ lat, lng }}
+                icon={{
+                  url: icon,
+                }}
+              />
+            </>
+          );
         })}
-        <Marker position={{ lat: 32.776566, lng: -79.930923 }} />
+        <Marker
+          position={{ lat: 32.776566, lng: -79.930923 }}
+          icon={{
+            url: "/CurrentLocationIcon.svg",
+          }}
+        />
       </GoogleMap>
     </>
   );

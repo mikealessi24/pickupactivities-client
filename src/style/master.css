@@ -21,6 +21,7 @@
 
 .left-container {
   border: 1px solid black;
+  /* background-color: #1a1a1a; */
   height: 100%;
   width: 20%;
   display: flex;
@@ -33,6 +34,7 @@
 .left {
   display: flex;
   justify-content: flex-start;
+  /* background-color: #333333; */
   border: 1px solid blue;
   width: 95%;
   height: 97%;
@@ -44,6 +46,7 @@
 
 .profile-left-move {
   display: flex;
+  /* background-color: #1a1a1a; */
   justify-content: flex-start;
   border: 1px solid blue;
   width: 50%;
@@ -168,14 +171,12 @@
   height: 90%;
 }
 .horizontal-left {
-  width: 30%;
-  border: 1px solid gold;
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
+  width: 20%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .horizontal-map {
   border: 1px solid black;
-  width: 70%;
+  width: 80%;
 }
