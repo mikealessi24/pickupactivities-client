@@ -34,18 +34,24 @@ export default function EditProfile({ signedIn, setClicked, s3Avi }) {
         <img src={s3Avi} alt="avatar" />
       </div>
 
-      <div className="profile-editor">
+      <div className="profile-editor-container">
         <form onSubmit={(e) => saveChanges(e)}>
-          <label>
-            Firstname: <input id="first" type="text" />
-          </label>
-          <label>
-            Lastname: <input id="last" type="text" />
-          </label>
-          <label>
-            About:
-            <textarea id="about" />
-          </label>
+          <div classname="actions">
+            <label>
+              Firstname: <input id="first" type="text" />
+            </label>
+          </div>
+          <div classname="actions">
+            <label>
+              Lastname: <input id="last" type="text" />
+            </label>
+          </div>
+          <div classname="actions">
+            <label>
+              About:
+              <textarea id="about" />
+            </label>
+          </div>
           <S3AvatarUpload signedIn={signedIn} />
 
           <Button type="submit">Save Profile</Button>

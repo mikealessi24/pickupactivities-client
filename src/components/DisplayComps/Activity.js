@@ -7,8 +7,29 @@ export default function Activity({
   setIsClicked,
   isClicked,
   setSelectedLoco,
+  signedIn,
 }) {
   // need to do reverse geocoding to get a better location
+  const [numJoined, setNumJoined] = React.useState(undefined);
+
+  React.useEffect(() => {
+    (async function () {
+      try {
+        const token = signedIn.signInUserSession.idToken.jwtToken;
+        const activityId = activity.id;
+        const resp = await axios.post(
+          "http://localhost:4000/get-participant-count",
+          {
+            token,
+            activityId,
+          }
+        );
+        setNumJoined(resp.data[0].numJoined);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   function highlight(id) {
     setIsClicked(true);
@@ -20,23 +41,59 @@ export default function Activity({
     setSelectedLoco(undefined);
   }
 
+  async function reserve(count) {
+    try {
+      const token = signedIn.signInUserSession.idToken.jwtToken;
+      const activityId = activity.id;
+      const counter = count;
+      alert(counter);
+      const resp = await axios.post("http://localhost:4000/add-participant", {
+        token,
+        activityId,
+        counter,
+      });
+      console.log(resp);
+      alert("success");
+    } catch (error) {
+      console.log(error);
+      alert("not working");
+    }
+  }
+
   return (
     <>
       {!isClicked ? (
-        <div
-          onClick={() => {
-            highlight(activity.id);
-          }}
-          className="activity-container"
-        >
+        <div className="activity-container">
           <div className="activity-title">
             <h3>{activity.title}</h3>
-            <button>reserve</button>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                reserve(e.target.elements.counter.value);
+              }}
+            >
+              <select name="counter" id="counter">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button type="submit">reserve</button>
+            </form>
           </div>
-          <div className="activity-content">
+          <div
+            onClick={() => {
+              highlight(activity.id);
+            }}
+            className="activity-content"
+          >
             <div className="text-header">
               <div>Host: {activity.host}</div>
-              <div>numGoing / {activity.numParticipants}</div>
+              <div>
+                {numJoined === null ? "0" : numJoined} /{" "}
+                {activity.numParticipants}
+              </div>
             </div>
             <div className="text-when">
               <div>
@@ -49,15 +106,32 @@ export default function Activity({
           </div>
         </div>
       ) : (
-        <div className="expanded-activity-cont" onClick={() => unHighlight()}>
+        <div className="expanded-activity-cont">
           <div className="activity-title">
             <h3>{activity.title}</h3>
-            <button>reserve</button>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                reserve(e.target.elements.counter.value);
+              }}
+            >
+              <select name="counter" id="counter">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button type="submit">reserve</button>
+            </form>
           </div>
-          <div className="activity-content">
+          <div className="activity-content" onClick={() => unHighlight()}>
             <div className="text-header">
               <div>Host: {activity.host}</div>
-              <div>numGoing / {activity.numParticipants}</div>
+              <div>
+                {numJoined === null ? "0" : numJoined} /{" "}
+                {activity.numParticipants}
+              </div>
             </div>
             <div className="text-when">
               <div>
@@ -68,13 +142,7 @@ export default function Activity({
               Where: {activity.latitude} {activity.longitude}
             </div>
           </div>
-          <div className="extra-info">
-            <div className="extra-info-header">
-              <div className="host-avatar">
-                <img src="https://upload.wikimedia.org/wikipedia/en/8/86/Avatar_Aang.png" />
-              </div>
-              <button>look</button>
-            </div>
+          <div className="extra-info" onClick={() => unHighlight()}>
             <div className="info">
               <p>{activity.info}</p>
             </div>

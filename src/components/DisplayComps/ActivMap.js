@@ -54,7 +54,7 @@ export default function ActivMap({ activities, isClicked, selectedLoco }) {
   }
 
   const center = {
-    lat: 32.776566,
+    lat: 32.786066,
     lng: -79.930923,
   };
 
@@ -62,7 +62,7 @@ export default function ActivMap({ activities, isClicked, selectedLoco }) {
     <>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={14}
+        zoom={13.5}
         center={center}
         options={options}
       >

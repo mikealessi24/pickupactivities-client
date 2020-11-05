@@ -2,6 +2,7 @@ import React from "react";
 import "../../style/master.css";
 import axios from "axios";
 import CompletedActiv from "../../components/DisplayComps/CompletedActiv";
+import ActivityTable from "../../components/DisplayComps/ActivityTable";
 import Button from "@material-ui/core/Button";
 import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
@@ -12,6 +13,7 @@ export default function Profile({ setSignedIn, signedIn }) {
   const [s3Avi, setS3Avi] = React.useState("");
   const [clicked, setClicked] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(undefined);
+  const [selected, setSelected] = React.useState([]);
 
   async function signOut() {
     try {
@@ -27,8 +29,27 @@ export default function Profile({ setSignedIn, signedIn }) {
     setClicked(true);
   }
 
+  async function deleteAct() {
+    try {
+      const token = signedIn.signInUserSession.idToken.jwtToken;
+      const activityId = selected;
+      const resp = await axios.post(
+        "http://localhost:4000/delete-active-post",
+        {
+          token,
+          activityId,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function editAct() {
+    navigate(`/edit/${selected}`);
+  }
+
   React.useEffect(() => {
-    console.log("re-render");
     (async function () {
       try {
         console.log("getting user");
@@ -36,7 +57,6 @@ export default function Profile({ setSignedIn, signedIn }) {
         const response = await axios.post("http://localhost:4000/get-user", {
           token,
         });
-        console.log("here is the response data", response.data);
         setCurrentUser(response.data[0]);
       } catch (error) {
         console.log(error);
@@ -68,7 +88,7 @@ export default function Profile({ setSignedIn, signedIn }) {
               <div className="avi-cont">
                 <img src={s3Avi} alt="avatar" />
               </div>
-              <div>
+              <div className="about-user">
                 {currentUser && currentUser.firstname}{" "}
                 {currentUser && currentUser.lastname}
               </div>
@@ -96,11 +116,16 @@ export default function Profile({ setSignedIn, signedIn }) {
 
         {/* this could change from cards to a table , maybe? */}
         <div className="profilePage-middle">
-          <CompletedActiv />
-          <CompletedActiv />
-          <CompletedActiv />
-          <CompletedActiv />
-          <CompletedActiv />
+          <div className="table-container">
+            <div className="table-header">
+              <div className="activity-actions">
+                <button onClick={() => deleteAct()}>delete</button>
+                <button onClick={() => editAct()}>edit</button>
+              </div>
+            </div>
+
+            <ActivityTable signedIn={signedIn} setSelected={setSelected} />
+          </div>
         </div>
       </div>
     </div>

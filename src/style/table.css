@@ -1,0 +1,10 @@
+.table {
+  border: 5px solid green;
+  height: 90%;
+}
+
+.table-head {
+  border: 1px solid brown;
+  position: sticky;
+  top: 0;
+}

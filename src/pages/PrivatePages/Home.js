@@ -56,7 +56,7 @@ export default function Home({ setSignedIn, signedIn }) {
               <Button onClick={() => navigate("/profile")}>Profile</Button>
               <div className="post-button">
                 <Button onClick={() => navigate("/host-activity")}>
-                  Host a pickup game
+                  Host an activity
                 </Button>
               </div>
             </div>

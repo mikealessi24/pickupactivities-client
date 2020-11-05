@@ -45,6 +45,7 @@ export default function Explore({ signedIn }) {
                 setIsClicked={setIsClicked}
                 isClicked={isClicked}
                 setSelectedLoco={setSelectedLoco}
+                signedIn={signedIn}
               />
             );
           })}

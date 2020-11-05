@@ -5,6 +5,7 @@ import Explore from "../../pages/PrivatePages/Explore";
 import Profile from "../../pages/PrivatePages/Profile";
 import NotFound from "../../pages/PublicPages/NotFound";
 import Host from "../../pages/PrivatePages/Host";
+import Edit from "../../pages/PrivatePages/Edit";
 
 export default function PrivateRoutes({ setSignedIn, signedIn }) {
   return (
@@ -14,6 +15,7 @@ export default function PrivateRoutes({ setSignedIn, signedIn }) {
       <Profile path="/profile" setSignedIn={setSignedIn} signedIn={signedIn} />
       <NotFound default />
       <Host path="/host-activity" signedIn={signedIn} />
+      <Edit path="/edit/:selected" signedIn={signedIn} />
     </Router>
   );
 }
