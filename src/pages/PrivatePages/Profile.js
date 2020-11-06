@@ -30,6 +30,7 @@ export default function Profile({ setSignedIn, signedIn }) {
   }
 
   async function deleteAct() {
+    window.confirm("are you sure you want to delete this activity?");
     try {
       const token = signedIn.signInUserSession.idToken.jwtToken;
       const activityId = selected;

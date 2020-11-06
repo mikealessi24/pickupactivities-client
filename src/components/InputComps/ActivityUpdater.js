@@ -5,45 +5,19 @@ import axios from "axios";
 export default function ActivityUpdater({
   setLat,
   setLong,
-  lat,
-  long,
-  signedIn,
-  selected,
-  originalAct,
+  setEditTitle,
+  setEditInfo,
+  setEditNumber,
+  setEditDate,
+  setEditTime,
+  setEditPrivate,
+  updateActivity,
 }) {
-  async function updateActivity(e) {
-    // try {
-    //   e.preventDefault();
-    //   const token = signedIn.signInUserSession.idToken.jwtToken;
-    //   const title = e.target.elements.title.value;
-    //   const info = e.target.elements.info.value;
-    //   const numParticipants = e.target.elements.numPar.value;
-    //   const date = e.target.elements.date.value;
-    //   const time = e.target.elements.time.value;
-    //   const latitude = lat;
-    //   const longitude = long;
-    //   const privacy = e.target.elements.option.value;
-    //   const resp = await axios.post("http://localhost:4000/create-activity", {
-    //     token,
-    //     title,
-    //     info,
-    //     numParticipants,
-    //     date,
-    //     time,
-    //     latitude,
-    //     longitude,
-    //     private: privacy,
-    //   });
-    //   window.alert("success");
-    // } catch (error) {
-    //   console.log(error);
-    //   window.alert("something went wrong");
-    // }
-  }
-
   return (
     <form
-      onSubmit={(e) => updateActivity(e)}
+      onSubmit={(e) => {
+        updateActivity(e);
+      }}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -52,22 +26,50 @@ export default function ActivityUpdater({
         border: "1px solid red",
       }}
     >
-      <input type="text" id="title" />
-      <textarea id="info" />
-      <input type="number" id="numPar" />
-      <input type="date" id="date" />
-      <input type="time" id="time" />
+      <input
+        type="text"
+        id="title"
+        onChange={(e) => setEditTitle(e.target.value)}
+      />
+      <textarea id="info" onChange={(e) => setEditInfo(e.target.value)} />
+      <input
+        type="number"
+        id="numPar"
+        onChange={(e) => setEditNumber(e.target.value)}
+      />
+      <input
+        type="date"
+        id="date"
+        onChange={(e) => setEditDate(e.target.value)}
+      />
+      <input
+        type="time"
+        id="time"
+        onChange={(e) => setEditTime(e.target.value)}
+      />
       <AutoAddress setLat={setLat} setLong={setLong} />
       <label>Privacy</label>
       <label>
         Priavte
-        <input type="radio" id="yes" name="option" value="yes" />
+        <input
+          type="radio"
+          id="yes"
+          name="option"
+          value="yes"
+          onChange={(e) => setEditPrivate(e.target.value)}
+        />
       </label>
       <label>
         Public
-        <input type="radio" id="no" name="option" value="no" />
+        <input
+          type="radio"
+          id="no"
+          name="option"
+          value="no"
+          onChange={(e) => setEditPrivate(e.target.value)}
+        />
       </label>
-      <button type="submit">click</button>
+      <button type="submit">update</button>
     </form>
   );
 }

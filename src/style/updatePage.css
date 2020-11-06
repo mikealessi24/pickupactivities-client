@@ -19,6 +19,16 @@
   justify-content: center;
 }
 
+.viewer-when {
+  border: 1px solid black;
+  height: 20%;
+}
+
+.viewer-content {
+  border: 1px solid green;
+  height: 80%;
+}
+
 .editor {
   height: 100%;
   width: 45%;

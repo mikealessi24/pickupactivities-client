@@ -63,7 +63,7 @@ export default function ActivityTable({ signedIn, setSelected }) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [activities]);
 
   const classes = useStyles();
 
@@ -79,25 +79,42 @@ export default function ActivityTable({ signedIn, setSelected }) {
         <Table className={classes.table} aria-label="simple table">
           <TableBody>
             {activities.map((activity) => (
-              <TableRow key={activity.id}>
-                <TableCell>
-                  <Checkbox
-                    // indeterminate={numSelected > 0 && numSelected < rowCount}
-                    // checked={rowCount > 0 && numSelected === rowCount}
-                    onChange={() => setSelected(activity.id)}
-                    // inputProps={{ "aria-label": "select all desserts" }}
-                  />
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {activity.title}
-                </TableCell>
-                <TableCell align="right">{activity.date}</TableCell>
-                <TableCell align="right">{activity.time}</TableCell>
-                <TableCell align="right">location</TableCell>
-                <TableCell align="right">
-                  {activity.completed === "yes" ? "Complete" : "Active"}
-                </TableCell>
-              </TableRow>
+              <>
+                {activity.completed === "yes" ? (
+                  <TableRow key={activity.id}>
+                    <TableCell></TableCell>
+                    <TableCell component="th" scope="row">
+                      {activity.title}
+                    </TableCell>
+                    <TableCell align="right">{activity.date}</TableCell>
+                    <TableCell align="right">{activity.time}</TableCell>
+                    <TableCell align="right">location</TableCell>
+                    <TableCell align="right">
+                      {activity.completed === "yes" ? "Complete" : "Active"}
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  <TableRow key={activity.id}>
+                    <TableCell>
+                      <Checkbox
+                        // indeterminate={numSelected > 0 && numSelected < rowCount}
+                        // checked={rowCount > 0 && numSelected === rowCount}
+                        onChange={() => setSelected(activity.id)}
+                        // inputProps={{ "aria-label": "select all desserts" }}
+                      />
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {activity.title}
+                    </TableCell>
+                    <TableCell align="right">{activity.date}</TableCell>
+                    <TableCell align="right">{activity.time}</TableCell>
+                    <TableCell align="right">location</TableCell>
+                    <TableCell align="right">
+                      {activity.completed === "yes" ? "Complete" : "Active"}
+                    </TableCell>
+                  </TableRow>
+                )}
+              </>
             ))}
           </TableBody>
         </Table>

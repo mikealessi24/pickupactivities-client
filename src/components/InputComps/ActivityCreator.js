@@ -1,6 +1,7 @@
 import React from "react";
 import AutoAddress from "../../components/InputComps/AutoAddress";
 import axios from "axios";
+import { navigate } from "@reach/router";
 
 export default function ActivityCreator({
   setLat,
@@ -34,6 +35,7 @@ export default function ActivityCreator({
         private: privacy,
       });
       window.alert("success");
+      navigate("/home");
     } catch (error) {
       console.log(error);
       window.alert("something went wrong");
