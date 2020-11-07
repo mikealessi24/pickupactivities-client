@@ -5,6 +5,7 @@ import "../../style/master.css";
 import "../../style/activity.css";
 import { navigate } from "@reach/router";
 import Activity from "../../components/DisplayComps/Activity";
+import ExpandedActivity from "../../components/DisplayComps/ExpandedActivity";
 import ActivMap from "../../components/DisplayComps/ActivMap";
 
 export default function Explore({ signedIn }) {
@@ -40,13 +41,25 @@ export default function Explore({ signedIn }) {
         <div className="horizontal-left">
           {activities.map((activity) => {
             return (
-              <Activity
-                activity={activity}
-                setIsClicked={setIsClicked}
-                isClicked={isClicked}
-                setSelectedLoco={setSelectedLoco}
-                signedIn={signedIn}
-              />
+              <>
+                {isClicked != activity.id ? (
+                  <Activity
+                    activity={activity}
+                    setIsClicked={setIsClicked}
+                    isClicked={isClicked}
+                    setSelectedLoco={setSelectedLoco}
+                    signedIn={signedIn}
+                  />
+                ) : (
+                  <ExpandedActivity
+                    activity={activity}
+                    setIsClicked={setIsClicked}
+                    isClicked={isClicked}
+                    setSelectedLoco={setSelectedLoco}
+                    signedIn={signedIn}
+                  />
+                )}
+              </>
             );
           })}
         </div>

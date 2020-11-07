@@ -122,6 +122,7 @@ export default function Profile({ setSignedIn, signedIn }) {
               <div className="activity-actions">
                 <button onClick={() => deleteAct()}>delete</button>
                 <button onClick={() => editAct()}>edit</button>
+                <button>reserve</button>
               </div>
             </div>
 

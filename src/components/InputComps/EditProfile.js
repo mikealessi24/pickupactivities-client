@@ -22,7 +22,7 @@ export default function EditProfile({ signedIn, setClicked, s3Avi }) {
       setClicked(false);
       setTimeout(function () {
         window.location.reload(true);
-      }, 2005);
+      }, 505);
     } catch (error) {
       console.log(error);
     }

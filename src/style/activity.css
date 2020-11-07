@@ -31,6 +31,11 @@
   justify-content: space-between;
 }
 
+.host:hover {
+  color: #00bc66;
+  cursor: pointer;
+}
+
 .address {
   display: flex;
   flex-wrap: wrap;

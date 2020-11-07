@@ -1,9 +1,8 @@
 import React from "react";
 import "../../style/activity.css";
 import axios from "axios";
-import { navigate } from "@reach/router";
 
-export default function Activity({
+export default function ExpandedActivity({
   activity,
   setIsClicked,
   isClicked,
@@ -33,12 +32,12 @@ export default function Activity({
   }, []);
 
   function highlight(id) {
-    setIsClicked(id);
+    setIsClicked(true);
     setSelectedLoco(id);
   }
 
   function unHighlight() {
-    setIsClicked(undefined);
+    setIsClicked(false);
     setSelectedLoco(undefined);
   }
 
@@ -47,27 +46,23 @@ export default function Activity({
       const token = signedIn.signInUserSession.idToken.jwtToken;
       const activityId = activity.id;
       const counter = count;
+      alert(counter);
       const resp = await axios.post("http://localhost:4000/add-participant", {
         token,
         activityId,
         counter,
       });
       console.log(resp);
-      alert("spot reserved");
-      window.location.reload(true);
+      alert("success");
     } catch (error) {
       console.log(error);
-      alert(`cannot reserve ${count} spots`);
+      alert("not working");
     }
-  }
-
-  function getUserProfile(user) {
-    navigate(`/view/${user}`);
   }
 
   return (
     <>
-      <div className="activity-container">
+      <div className="expanded-activity-cont">
         <div className="activity-title">
           <h3>{activity.title}</h3>
           <form
@@ -86,16 +81,9 @@ export default function Activity({
             <button type="submit">reserve</button>
           </form>
         </div>
-        <div
-          onClick={() => {
-            highlight(activity.id);
-          }}
-          className="activity-content"
-        >
+        <div className="activity-content" onClick={() => unHighlight()}>
           <div className="text-header">
-            <div className="host" onClick={() => getUserProfile(activity.host)}>
-              Host: {activity.host}
-            </div>
+            <div>Host: {activity.host}</div>
             <div>
               {numJoined === null ? "0" : numJoined} /{" "}
               {activity.numParticipants}
@@ -108,6 +96,11 @@ export default function Activity({
           </div>
           <div className="address">
             Where: {activity.latitude} {activity.longitude}
+          </div>
+        </div>
+        <div className="extra-info" onClick={() => unHighlight()}>
+          <div className="info">
+            <p>{activity.info}</p>
           </div>
         </div>
       </div>
