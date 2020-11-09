@@ -120,13 +120,43 @@
   background-color: #00bc66;
 }
 
-.middle {
-  border: 1px solid red;
+.middle-container {
   width: 60%;
-  overflow: scroll;
+  display: flex;
+  align-items: center;
+}
+
+.middle {
+  border: 1px solid purple;
+  width: 100%;
+  height: 97%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 3px;
+}
+
+.home-search {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-search input {
+  height: 50%;
+  width: 500px;
+  border-radius: 500px;
+}
+
+.home-activity-container {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid chartreuse;
+  overflow: scroll;
 }
 
 .profilePage-middle {
@@ -168,7 +198,6 @@
 
 .right {
   display: flex;
-  justify-content: flex-start;
   border: 1px solid pink;
   width: 95%;
   height: 97%;
@@ -176,6 +205,18 @@
   flex-direction: column;
   align-items: center;
   border-radius: 3px;
+}
+
+.view-following {
+  border: 1px solid black;
+  position: relative;
+  top: 60px;
+  height: 60%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
 }
 
 /* horizontal page layout */

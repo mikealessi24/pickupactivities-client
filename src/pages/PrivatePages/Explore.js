@@ -8,10 +8,9 @@ import Activity from "../../components/DisplayComps/Activity";
 import ExpandedActivity from "../../components/DisplayComps/ExpandedActivity";
 import ActivMap from "../../components/DisplayComps/ActivMap";
 
-export default function Explore({ signedIn }) {
+export default function Explore({ signedIn, setSelectedLoco, selectedLoco }) {
   const [activities, setActivities] = React.useState([]);
   const [isClicked, setIsClicked] = React.useState(false);
-  const [selectedLoco, setSelectedLoco] = React.useState(undefined);
 
   React.useEffect(() => {
     (async function () {

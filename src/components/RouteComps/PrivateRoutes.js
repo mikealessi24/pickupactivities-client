@@ -9,10 +9,21 @@ import Edit from "../../pages/PrivatePages/Edit";
 import ViewOtherProfile from "../../pages/PrivatePages/ViewOtherProfile";
 
 export default function PrivateRoutes({ setSignedIn, signedIn }) {
+  const [selectedLoco, setSelectedLoco] = React.useState(undefined);
   return (
     <Router>
-      <Home path="/home" setSignedIn={setSignedIn} signedIn={signedIn} />
-      <Explore path="/explore" signedIn={signedIn} />
+      <Home
+        path="/home"
+        setSignedIn={setSignedIn}
+        signedIn={signedIn}
+        setSelectedLoco={setSelectedLoco}
+      />
+      <Explore
+        path="/explore"
+        signedIn={signedIn}
+        setSelectedLoco={setSelectedLoco}
+        selectedLoco={selectedLoco}
+      />
       <Profile path="/profile" setSignedIn={setSignedIn} signedIn={signedIn} />
       <NotFound default />
       <Host path="/host-activity" signedIn={signedIn} />

@@ -46,13 +46,10 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const avatar = await axios.post(
-          "http://localhost:4000/get-others-s3-pic",
-          {
-            token,
-            user,
-          }
-        );
+        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
+          token,
+          user,
+        });
         setS3Avi(avatar.data);
       } catch (error) {
         console.log(error);

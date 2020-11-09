@@ -1,0 +1,67 @@
+.home-activity {
+  border: 1px solid black;
+  margin: 10px;
+  width: 90%;
+  height: 350px;
+  border-radius: 3px;
+}
+
+.home-activity-body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid blue;
+}
+
+.home-activity-header {
+  height: 20%;
+  border: 1px solid slateblue;
+  display: flex;
+  justify-content: space-between;
+}
+
+.home-header-avatar {
+  border: 1px solid green;
+  height: 100px;
+  width: 100px;
+  position: relative;
+  right: 20px;
+  top: 20px;
+  border-radius: 500px;
+  z-index: 5;
+}
+
+.home-header-avatar img {
+  height: 100%;
+  width: 100%;
+  border-radius: 500px;
+}
+
+.home-activity-content {
+  height: 70%;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid gray;
+}
+
+.activity-when-where {
+  border: 1px solid green;
+  width: 50%;
+  height: 100%;
+}
+
+.home-activity-info {
+  width: 50%;
+  height: 75%;
+  border: 1px solid blue;
+}
+
+.home-activity-actions {
+  height: 10%;
+  display: flex;
+}
+
+.home-activity-actions form {
+  height: 100%;
+}

@@ -31,7 +31,7 @@ const options = {
   styles: MapStyle,
 };
 
-export default function ActivMap({ activities, isClicked, selectedLoco }) {
+export default function ActivMap({ activities, selectedLoco }) {
   const [latitude, setLatitude] = React.useState(undefined);
   const [longitude, setLongitude] = React.useState(undefined);
 
