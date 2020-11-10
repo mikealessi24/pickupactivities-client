@@ -1,9 +1,13 @@
 .home-activity {
-  border: 1px solid black;
   margin: 10px;
   width: 90%;
   height: 350px;
   border-radius: 3px;
+  /* background-color: #d3d7da; */
+  background-color: whitesmoke;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* border: 2px solid #00416b; */
+  border: 1px solid black;
 }
 
 .home-activity-body {
@@ -11,18 +15,19 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 
 .home-activity-header {
   height: 20%;
-  border: 1px solid slateblue;
+  background-color: #00bc66;
   display: flex;
   justify-content: space-between;
+  border-radius: 3px;
 }
 
 .home-header-avatar {
-  border: 1px solid green;
+  /* border: 1px solid green; */
   height: 100px;
   width: 100px;
   position: relative;
@@ -30,6 +35,7 @@
   top: 20px;
   border-radius: 500px;
   z-index: 5;
+  border: 2px solid #00416b;
 }
 
 .home-header-avatar img {
@@ -42,11 +48,9 @@
   height: 70%;
   display: flex;
   align-items: flex-end;
-  border: 1px solid gray;
 }
 
 .activity-when-where {
-  border: 1px solid green;
   width: 50%;
   height: 100%;
 }
@@ -54,7 +58,7 @@
 .home-activity-info {
   width: 50%;
   height: 75%;
-  border: 1px solid blue;
+  border: 1px solid black;
 }
 
 .home-activity-actions {

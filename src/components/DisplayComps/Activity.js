@@ -6,12 +6,12 @@ import { navigate } from "@reach/router";
 export default function Activity({
   activity,
   setIsClicked,
-  isClicked,
   setSelectedLoco,
   signedIn,
 }) {
   // need to do reverse geocoding to get a better location
   const [numJoined, setNumJoined] = React.useState(undefined);
+  const [activityAvatar, setActivityAvatar] = React.useState(undefined);
 
   React.useEffect(() => {
     (async function () {
@@ -26,6 +26,20 @@ export default function Activity({
           }
         );
         setNumJoined(resp.data[0].numJoined);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
+    (async function () {
+      const user = activity.host;
+      const token = signedIn.signInUserSession.idToken.jwtToken;
+      try {
+        const resp = await axios.post("http://localhost:4000/get-s3-pic", {
+          token,
+          user,
+        });
+        setActivityAvatar(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -67,31 +81,21 @@ export default function Activity({
 
   return (
     <>
-      <div className="activity-container">
+      <div
+        className="activity-container"
+        onMouseOver={() => {
+          highlight(activity.id);
+        }}
+        onMouseLeave={() => unHighlight(activity.id)}
+      >
         <div className="activity-title">
           <h3>{activity.title}</h3>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              reserve(e.target.elements.counter.value);
-            }}
-          >
-            <select name="counter" id="counter">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-            <button type="submit">reserve</button>
-          </form>
+          <div className="host-avatar">
+            <img src={activityAvatar} alt="avatar" />
+          </div>
         </div>
-        <div
-          onClick={() => {
-            highlight(activity.id);
-          }}
-          className="activity-content"
-        >
+        <br></br>
+        <div className="activity-content">
           <div className="text-header">
             <div className="host" onClick={() => getUserProfile(activity.host)}>
               Host: {activity.host}
@@ -110,6 +114,21 @@ export default function Activity({
             Where: {activity.latitude} {activity.longitude}
           </div>
         </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            reserve(e.target.elements.counter.value);
+          }}
+        >
+          <select name="counter" id="counter">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <button type="submit">reserve</button>
+        </form>
       </div>
     </>
   );

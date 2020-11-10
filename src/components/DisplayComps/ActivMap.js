@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   GoogleMap,
   useLoadScript,
@@ -31,7 +32,11 @@ const options = {
   styles: MapStyle,
 };
 
-export default function ActivMap({ activities, selectedLoco }) {
+export default function ActivMap({
+  activities,
+  selectedLoco,
+  setSelectedLoco,
+}) {
   const [latitude, setLatitude] = React.useState(undefined);
   const [longitude, setLongitude] = React.useState(undefined);
 
@@ -69,21 +74,45 @@ export default function ActivMap({ activities, selectedLoco }) {
         {activities.map((location) => {
           const lat = Number(location.latitude);
           const lng = Number(location.longitude);
-          let icon;
-          if (location.id === selectedLoco) {
-            icon = "/icon2.svg";
-          } else {
-            icon = "/icon1.svg";
-          }
+          // let icon;
+          // if (location.id === selectedLoco) {
+          //   icon = "/icon2.svg";
+          // } else {
+          //   icon = "/icon1.svg";
+          // }
           return (
             <>
-              <Marker
-                key={location.id}
-                position={{ lat, lng }}
-                icon={{
-                  url: icon,
-                }}
-              />
+              {selectedLoco === location.id ? (
+                <>
+                  <Marker
+                    key={location.id}
+                    position={{ lat, lng }}
+                    icon={{
+                      url: "/icon2.svg",
+                    }}
+                    onClick={() => setSelectedLoco(location.id)}
+                  >
+                    <InfoWindow>
+                      <div>
+                        <h3>{location.title}</h3>
+                        <p>{location.host}</p>
+                        <p>need to add reverse geocoded address</p>
+                      </div>
+                    </InfoWindow>
+                  </Marker>
+                </>
+              ) : (
+                <>
+                  <Marker
+                    key={location.id}
+                    position={{ lat, lng }}
+                    icon={{
+                      url: "/icon1.svg",
+                    }}
+                    onClick={() => setSelectedLoco(location.id)}
+                  />
+                </>
+              )}
             </>
           );
         })}

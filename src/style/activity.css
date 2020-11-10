@@ -1,15 +1,15 @@
 .activity-container {
   border: 2px solid black;
   width: 90%;
-  height: 30%;
+  height: 275px;
   margin: 15px;
   border-radius: 5px;
 }
 
 .activity-title {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-between;
   background-color: #00bc66;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .activity-content {
-  border: 1px solid rgb(121, 180, 62);
+  /* border: 1px solid rgb(121, 180, 62); */
   height: 135px;
   display: flex;
   flex-direction: column;
@@ -41,50 +41,20 @@
   flex-wrap: wrap;
 }
 
-/* expanded */
-.expanded-activity-cont {
-  border: 2px solid black;
-  width: 90%;
-  height: 97%;
-  margin: 15px;
-  border-radius: 5px;
-}
-
-.extra-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 68%;
-}
-
-.extra-info-header {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.extra-info button {
-  height: 20px;
-  margin: 5px;
-}
-
 .host-avatar {
-  height: 125px;
-  width: 125px;
+  height: 65px;
+  width: 65px;
   margin: 5px;
+  border-radius: 500px;
+  border: 1px solid black;
+  position: relative;
+  right: 10px;
+  top: 30px;
+  z-index: 5;
 }
 
 .host-avatar img {
   height: 100%;
   width: 100%;
   border-radius: 500px;
-  border: 1px solid black;
-}
-
-.info {
-  height: 100%;
-  width: 90%;
-  border: 1px solid black;
-  overflow-y: scroll;
 }

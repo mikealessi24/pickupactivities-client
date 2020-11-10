@@ -3,7 +3,6 @@ import "../../style/master.css";
 import "../../style/HomeActivity.css";
 import HomeActivity from "../../components/DisplayComps/HomeActivity";
 import axios from "axios";
-
 import Button from "@material-ui/core/Button";
 import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
@@ -13,6 +12,7 @@ export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
   const [activities, setActivities] = React.useState([]);
   const [time, setTime] = React.useState("");
   const [followingList, setFollowingList] = React.useState([]);
+  const [activityFilter, setActivityFilter] = React.useState("following");
 
   async function signOut() {
     try {
@@ -39,14 +39,16 @@ export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
     })();
 
     (async function () {
+      const route =
+        activityFilter === "following"
+          ? "http://localhost:4000/get-following-activities"
+          : "http://localhost:4000/get-activities";
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const resp = await axios.post(
-          "http://localhost:4000/get-following-activities",
-          {
-            token,
-          }
-        );
+        const resp = await axios.post(route, {
+          token,
+        });
+        console.log(resp.data);
         setActivities(resp.data);
       } catch (error) {
         console.log(error);
@@ -64,10 +66,23 @@ export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [activityFilter]);
 
   function getUserProfile(user) {
     navigate(`/view/${user}`);
+  }
+
+  async function search(search) {
+    try {
+      const token = signedIn.signInUserSession.idToken.jwtToken;
+      const resp = await axios.post("http://localhost:4000/search", {
+        token,
+        search,
+      });
+      console.log(resp);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -94,15 +109,42 @@ export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
             </div>
           </div>
         </div>
+        <hr></hr>
         <div className="middle-container">
           <div className="middle">
-            <div className="home-search">
-              <input
-                type="text"
-                placeholder="Search for a pickup activity..."
-              />
-              <div>fileters that filter search and feed</div>
+            <br></br>
+            <div className="home-search-container">
+              <div className="home-search">
+                <input
+                  type="text"
+                  placeholder="Search for a pickup activity..."
+                  onKeyPress={(e) => search(e.target.value)}
+                />
+              </div>
+              <div
+                onClick={() => setActivityFilter("following")}
+                className={
+                  activityFilter === "following"
+                    ? "follow-filter-underline"
+                    : "follow-filter"
+                }
+              >
+                Following
+              </div>
+              <div
+                onClick={() => setActivityFilter("all")}
+                className={
+                  activityFilter === "all"
+                    ? "all-filter-underline"
+                    : "all-filter"
+                }
+              >
+                All
+              </div>
             </div>
+            <br></br>
+            <hr style={{ width: "97%" }}></hr>
+            <br></br>
             <div className="home-activity-container">
               {activities.map((activity) => (
                 <HomeActivity
@@ -115,15 +157,23 @@ export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
             </div>
           </div>
         </div>
+        <hr></hr>
         <div className="right-container">
           <div className="right">
             <div className="view-following">
               <h3>following</h3>
-              <div>
+              <div style={{ width: "100%" }}>
                 {followingList.map((following) => (
-                  <div onClick={() => getUserProfile(following.beingFollowed)}>
-                    {following.beingFollowed}
-                  </div>
+                  <>
+                    <hr style={{ width: "95%" }}></hr>
+                    <div
+                      style={{ marginLeft: "10px" }}
+                      onClick={() => getUserProfile(following.beingFollowed)}
+                    >
+                      {following.beingFollowed}
+                    </div>
+                    <hr style={{ width: "95%" }}></hr>
+                  </>
                 ))}
               </div>
             </div>
