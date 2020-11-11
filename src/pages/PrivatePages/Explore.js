@@ -7,7 +7,13 @@ import { navigate } from "@reach/router";
 import Activity from "../../components/DisplayComps/Activity";
 import ActivMap from "../../components/DisplayComps/ActivMap";
 
-export default function Explore({ signedIn, setSelectedLoco, selectedLoco }) {
+export default function Explore({
+  signedIn,
+  setSelectedLoco,
+  selectedLoco,
+  setInfoAddress,
+  infoAddress,
+}) {
   const [activities, setActivities] = React.useState([]);
   const [isClicked, setIsClicked] = React.useState(false);
 
@@ -46,6 +52,7 @@ export default function Explore({ signedIn, setSelectedLoco, selectedLoco }) {
                   isClicked={isClicked}
                   setSelectedLoco={setSelectedLoco}
                   signedIn={signedIn}
+                  setInfoAddress={setInfoAddress}
                 />
               </>
             );
@@ -57,6 +64,8 @@ export default function Explore({ signedIn, setSelectedLoco, selectedLoco }) {
             isClicked={isClicked}
             selectedLoco={selectedLoco}
             setSelectedLoco={setSelectedLoco}
+            infoAddress={infoAddress}
+            setInfoAddress={setInfoAddress}
           />
         </div>
       </div>

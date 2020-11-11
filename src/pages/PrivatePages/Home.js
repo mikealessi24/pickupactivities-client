@@ -7,10 +7,14 @@ import Button from "@material-ui/core/Button";
 import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
 
-export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
+export default function Home({
+  setSignedIn,
+  signedIn,
+  setSelectedLoco,
+  setInfoAddress,
+}) {
   const [s3Avi, setS3Avi] = React.useState("");
   const [activities, setActivities] = React.useState([]);
-  const [time, setTime] = React.useState("");
   const [followingList, setFollowingList] = React.useState([]);
   const [activityFilter, setActivityFilter] = React.useState("following");
 
@@ -118,7 +122,7 @@ export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
                 <input
                   type="text"
                   placeholder="Search for a pickup activity..."
-                  onKeyPress={(e) => search(e.target.value)}
+                  // onChange={(e) => search(e.target.value)}
                 />
               </div>
               <div
@@ -152,6 +156,7 @@ export default function Home({ setSignedIn, signedIn, setSelectedLoco }) {
                   signedIn={signedIn}
                   getUserProfile={getUserProfile}
                   setSelectedLoco={setSelectedLoco}
+                  setInfoAddress={setInfoAddress}
                 />
               ))}
             </div>

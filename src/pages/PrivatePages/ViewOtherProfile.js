@@ -10,24 +10,10 @@ import Profile from "../../pages/PrivatePages/Profile";
 
 export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
   const [s3Avi, setS3Avi] = React.useState("");
-  const [clicked, setClicked] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState(undefined);
   const [selected, setSelected] = React.useState([]);
   const [isFollowed, setIsFollowed] = React.useState(undefined);
 
-  async function signOut() {
-    try {
-      await Auth.signOut({ global: true });
-      setSignedIn(undefined);
-      navigate("/signin");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function expandEdit() {
-    setClicked(true);
-  }
+  // reserve function and view function with selected
 
   React.useEffect(() => {
     (async function () {
@@ -37,7 +23,6 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
           token,
           user,
         });
-        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -118,10 +103,9 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
                   <img src={s3Avi} alt="avatar" />
                 </div>
                 <div className="about-user">
-                  {currentUser && currentUser.firstname}{" "}
-                  {currentUser && currentUser.lastname}
+                  {user && user.firstname} {user && user.lastname}
                 </div>
-                <div>{currentUser && currentUser.about}</div>
+                <div>{user && user.about}</div>
                 <div className="user-actions">
                   {!isFollowed ? (
                     <Button onClick={() => follow()}>Follow</Button>

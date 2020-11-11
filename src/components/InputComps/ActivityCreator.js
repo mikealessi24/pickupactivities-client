@@ -23,7 +23,7 @@ export default function ActivityCreator({
       const longitude = long;
       const privacy = e.target.elements.option.value;
 
-      const resp = await axios.post("http://localhost:4000/create-activity", {
+      await axios.post("http://localhost:4000/create-activity", {
         token,
         title,
         info,

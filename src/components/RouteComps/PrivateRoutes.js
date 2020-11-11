@@ -10,6 +10,7 @@ import ViewOtherProfile from "../../pages/PrivatePages/ViewOtherProfile";
 
 export default function PrivateRoutes({ setSignedIn, signedIn }) {
   const [selectedLoco, setSelectedLoco] = React.useState(undefined);
+  const [infoAddress, setInfoAddress] = React.useState(undefined);
   return (
     <Router>
       <Home
@@ -17,12 +18,15 @@ export default function PrivateRoutes({ setSignedIn, signedIn }) {
         setSignedIn={setSignedIn}
         signedIn={signedIn}
         setSelectedLoco={setSelectedLoco}
+        setInfoAddress={setInfoAddress}
       />
       <Explore
         path="/explore"
         signedIn={signedIn}
         setSelectedLoco={setSelectedLoco}
         selectedLoco={selectedLoco}
+        setInfoAddress={setInfoAddress}
+        infoAddress={infoAddress}
       />
       <Profile path="/profile" setSignedIn={setSignedIn} signedIn={signedIn} />
       <NotFound default />

@@ -8,10 +8,13 @@ export default function Activity({
   setIsClicked,
   setSelectedLoco,
   signedIn,
+  setInfoAddress,
 }) {
-  // need to do reverse geocoding to get a better location
   const [numJoined, setNumJoined] = React.useState(undefined);
   const [activityAvatar, setActivityAvatar] = React.useState(undefined);
+  const [address, setAddress] = React.useState(undefined);
+
+  const renderDate = activity.date.split("-").reverse();
 
   React.useEffect(() => {
     (async function () {
@@ -44,11 +47,25 @@ export default function Activity({
         console.log(error);
       }
     })();
+
+    (async function () {
+      try {
+        const lat = Number(activity.latitude);
+        const lng = Number(activity.longitude);
+        const resp = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+        );
+        setAddress(resp.data.results[0].formatted_address);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, []);
 
   function highlight(id) {
     setIsClicked(id);
     setSelectedLoco(id);
+    setInfoAddress(address);
   }
 
   function unHighlight() {
@@ -107,12 +124,11 @@ export default function Activity({
           </div>
           <div className="text-when">
             <div>
-              When: {activity.date} at {activity.time}
+              When: {renderDate[0]}/{renderDate[1]}/{renderDate[2]} at{" "}
+              {activity.time}
             </div>
           </div>
-          <div className="address">
-            Where: {activity.latitude} {activity.longitude}
-          </div>
+          <div className="address">Where: {address}</div>
         </div>
         <form
           onSubmit={(e) => {

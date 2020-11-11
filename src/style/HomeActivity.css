@@ -7,7 +7,7 @@
   background-color: whitesmoke;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   /* border: 2px solid #00416b; */
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
 .home-activity-body {
@@ -35,7 +35,7 @@
   top: 20px;
   border-radius: 500px;
   z-index: 5;
-  border: 2px solid #00416b;
+  border: 2px solid black;
 }
 
 .home-header-avatar img {
@@ -58,7 +58,9 @@
 .home-activity-info {
   width: 50%;
   height: 75%;
-  border: 1px solid black;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .home-activity-actions {

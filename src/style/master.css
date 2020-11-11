@@ -149,7 +149,7 @@
 
 .home-search {
   width: 500px;
-  height: 60%;
+  height: 80%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,7 +165,7 @@
 }
 
 .follow-filter {
-  height: 60%;
+  height: 80%;
   width: 70px;
   display: flex;
   align-items: center;
@@ -175,7 +175,7 @@
 }
 
 .follow-filter-underline {
-  height: 60%;
+  height: 80%;
   width: 70px;
   display: flex;
   align-items: center;
@@ -186,7 +186,7 @@
 }
 
 .all-filter {
-  height: 60%;
+  height: 80%;
   width: 70px;
   border-top-right-radius: 500px;
   border-bottom-right-radius: 500px;
@@ -198,7 +198,7 @@
 }
 
 .all-filter-underline {
-  height: 60%;
+  height: 80%;
   width: 70px;
   border-top-right-radius: 500px;
   border-bottom-right-radius: 500px;

@@ -9,9 +9,14 @@ export default function HomeActivity({
   signedIn,
   getUserProfile,
   setSelectedLoco,
+  setInfoAddress,
 }) {
   const [activityAvatar, setActivityAvatar] = React.useState(undefined);
   const [numJoined, setNumJoined] = React.useState(undefined);
+
+  const renderDate = activity.date.split("-").reverse();
+  const [address, setAddress] = React.useState(undefined);
+
   React.useEffect(() => {
     (async function () {
       const user = activity.host;
@@ -43,8 +48,21 @@ export default function HomeActivity({
         console.log(error);
       }
     })();
-  }, []);
 
+    (async function () {
+      try {
+        const lat = Number(activity.latitude);
+        const lng = Number(activity.longitude);
+        const resp = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+        );
+        console.log(resp.data.results[0].formatted_address);
+        setAddress(resp.data.results[0].formatted_address);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
   async function reserve(count) {
     try {
       const token = signedIn.signInUserSession.idToken.jwtToken;
@@ -87,6 +105,7 @@ export default function HomeActivity({
 
   function view() {
     setSelectedLoco(activity.id);
+    setInfoAddress(address);
     navigate("/explore");
   }
 
@@ -110,11 +129,11 @@ export default function HomeActivity({
               {activity.numParticipants} participants needed
             </div>
             <br></br>
-            <div>{activity.date}</div>
-            <div>{activity.time}</div>
             <div>
-              {activity.latitude} {activity.longitude}
+              {renderDate[0]}/{renderDate[1]}/{renderDate[2]}
             </div>
+            <div>{activity.time}</div>
+            <div>{address}</div>
           </div>
           <div className="home-activity-info">
             <p>{activity.info}</p>
