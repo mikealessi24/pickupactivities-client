@@ -17,6 +17,7 @@ export default function Home({
   const [activities, setActivities] = React.useState([]);
   const [followingList, setFollowingList] = React.useState([]);
   const [activityFilter, setActivityFilter] = React.useState("following");
+  const [search, setSearch] = React.useState(undefined);
 
   async function signOut() {
     try {
@@ -76,16 +77,20 @@ export default function Home({
     navigate(`/view/${user}`);
   }
 
-  async function search(search) {
-    try {
-      const token = signedIn.signInUserSession.idToken.jwtToken;
-      const resp = await axios.post("http://localhost:4000/search", {
-        token,
-        search,
-      });
-      console.log(resp);
-    } catch (error) {
-      console.log(error);
+  async function searchActivities(e) {
+    if (e.key === "Enter") {
+      try {
+        const token = signedIn.signInUserSession.idToken.jwtToken;
+        const resp = await axios.post("http://localhost:4000/search", {
+          token,
+          search,
+        });
+        resp.data[0]
+          ? setActivities(resp.data)
+          : alert("No results, try another search");
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
@@ -113,7 +118,7 @@ export default function Home({
             </div>
           </div>
         </div>
-        <hr></hr>
+        <hr style={{ width: "1px", backgroundColor: "black" }}></hr>
         <div className="middle-container">
           <div className="middle">
             <br></br>
@@ -122,7 +127,8 @@ export default function Home({
                 <input
                   type="text"
                   placeholder="Search for a pickup activity..."
-                  // onChange={(e) => search(e.target.value)}
+                  onKeyPress={(e) => searchActivities(e)}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
               <div
@@ -147,7 +153,9 @@ export default function Home({
               </div>
             </div>
             <br></br>
-            <hr style={{ width: "97%" }}></hr>
+            <hr
+              style={{ width: "97%", height: "1px", backgroundColor: "black" }}
+            ></hr>
             <br></br>
             <div className="home-activity-container">
               {activities.map((activity) => (
@@ -162,11 +170,13 @@ export default function Home({
             </div>
           </div>
         </div>
-        <hr></hr>
+        <hr style={{ width: "1px", backgroundColor: "black" }}></hr>
         <div className="right-container">
           <div className="right">
             <div className="view-following">
-              <h3>following</h3>
+              <h3 style={{ fontSize: "22px" }}>
+                <img src="/addressBook.png" /> Following
+              </h3>
               <div style={{ width: "100%" }}>
                 {followingList.map((following) => (
                   <>
@@ -175,7 +185,7 @@ export default function Home({
                       style={{ marginLeft: "10px" }}
                       onClick={() => getUserProfile(following.beingFollowed)}
                     >
-                      {following.beingFollowed}
+                      @{following.beingFollowed}
                     </div>
                     <hr style={{ width: "95%" }}></hr>
                   </>

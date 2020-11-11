@@ -94,6 +94,7 @@
   width: 100%;
   border-radius: 500px;
   border: 2px solid black;
+  background-color: white;
 }
 
 .user-actions {
@@ -149,56 +150,80 @@
 
 .home-search {
   width: 500px;
-  height: 80%;
+  height: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
   border-top-left-radius: 500px;
   border-bottom-left-radius: 500px;
   background-color: #00bc66;
+  border-left: 2px solid black;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
   /* box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2); */
 }
 
 .home-search input {
-  height: 50%;
+  height: 40%;
   width: 465px;
 }
 
 .follow-filter {
-  height: 80%;
-  width: 70px;
+  height: 90%;
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #00bc66;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
   /* box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2); */
 }
 
+.follow-filter:hover {
+  cursor: pointer;
+  background-color: #00aa5e;
+}
+
 .follow-filter-underline {
-  height: 80%;
-  width: 70px;
+  height: 90%;
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #00bc66;
   text-decoration: underline;
+  color: white;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
   /* box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2); */
 }
 
 .all-filter {
-  height: 80%;
+  height: 90%;
   width: 70px;
   border-top-right-radius: 500px;
   border-bottom-right-radius: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
   /* box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2); */
   background-color: #00bc66;
 }
 
+.all-filter:hover {
+  cursor: pointer;
+  background-color: #00aa5e;
+}
+
 .all-filter-underline {
-  height: 80%;
+  height: 90%;
   width: 70px;
   border-top-right-radius: 500px;
   border-bottom-right-radius: 500px;
@@ -208,6 +233,11 @@
   text-decoration: underline;
   /* box-shadow: 0 2px 4px 2px rgba(0, 0, 0, 0.2); */
   background-color: #00bc66;
+  color: white;
+  font-weight: bold;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
 }
 
 .home-activity-container {
@@ -272,6 +302,7 @@
 
 .view-following {
   border: 2px solid black;
+  border-radius: 5px;
   position: relative;
   top: 60px;
   height: 60%;
@@ -280,6 +311,12 @@
   flex-direction: column;
   align-items: center;
   overflow-y: scroll;
+  background-color: whitesmoke;
+}
+
+.view-following img {
+  height: 22px;
+  width: 22px;
 }
 
 /* horizontal page layout */

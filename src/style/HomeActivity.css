@@ -5,7 +5,8 @@
   border-radius: 3px;
   /* background-color: #d3d7da; */
   background-color: whitesmoke;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* background-color: #003d6b; */
+  box-shadow: 4px 8px 12px 0 rgba(0, 0, 0, 0.5);
   /* border: 2px solid #00416b; */
   border: 2px solid black;
 }
@@ -21,9 +22,14 @@
 .home-activity-header {
   height: 20%;
   background-color: #00bc66;
+  color: white;
   display: flex;
   justify-content: space-between;
-  border-radius: 3px;
+}
+
+.home-title {
+  margin-left: 10px;
+  text-shadow: 2px 2px black;
 }
 
 .home-header-avatar {
@@ -36,6 +42,7 @@
   border-radius: 500px;
   z-index: 5;
   border: 2px solid black;
+  background-color: white;
 }
 
 .home-header-avatar img {
@@ -55,9 +62,16 @@
   height: 100%;
 }
 
+.activity-when-where div {
+  margin-left: 10px;
+}
+
 .home-activity-info {
   width: 50%;
   height: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-top: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
@@ -66,8 +80,50 @@
 .home-activity-actions {
   height: 10%;
   display: flex;
+  align-items: center;
+  border: 1px solid black;
 }
 
 .home-activity-actions form {
   height: 100%;
+}
+
+.reserver {
+  display: flex;
+  width: 80%;
+  justify-content: space-evenly;
+}
+
+.view-more {
+  border: 1px solid red;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+}
+
+.view-more img {
+  height: 100%;
+  width: 100%;
+  border-radius: 500px;
+}
+
+.view-more img:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.host-display {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 15px;
+  left: 550px;
+  margin: 0;
+  padding: 0;
+  border-radius: 500px;
+}
+
+.host-display:hover {
+  background-color: #00bc66;
+  cursor: pointer;
 }

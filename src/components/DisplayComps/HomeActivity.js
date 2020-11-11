@@ -13,6 +13,7 @@ export default function HomeActivity({
 }) {
   const [activityAvatar, setActivityAvatar] = React.useState(undefined);
   const [numJoined, setNumJoined] = React.useState(undefined);
+  const [reservedClicked, setReservedClicked] = React.useState(undefined);
 
   const renderDate = activity.date.split("-").reverse();
   const [address, setAddress] = React.useState(undefined);
@@ -74,7 +75,7 @@ export default function HomeActivity({
         counter,
       });
       console.log(resp);
-      alert("spot reserved");
+      alert(`${count} spots reserved`);
       window.location.reload(true);
     } catch (error) {
       console.log(error);
@@ -113,70 +114,110 @@ export default function HomeActivity({
     <div className="home-activity">
       <div className="home-activity-body">
         <div className="home-activity-header">
-          <h2>{activity.title}</h2>
+          <h2 className="home-title">{activity.title}</h2>
           <div className="home-header-avatar">
             <img src={activityAvatar} alt="avatar" />
           </div>
         </div>
         <div className="home-activity-content">
           <div className="activity-when-where">
-            <div onClick={() => getUserProfile(activity.host)}>
-              {activity.host}
-            </div>
-            <br></br>
-            <div>
+            <h4
+              className="host-display"
+              onClick={() => getUserProfile(activity.host)}
+            >
+              @{activity.host}
+            </h4>
+            <div style={{ fontSize: "20px" }}>
+              <span role="img" aria-label="person" style={{ fontSize: "25px" }}>
+                👥
+              </span>{" "}
               {numJoined === null ? "0" : numJoined} /{" "}
-              {activity.numParticipants} participants needed
+              {activity.numParticipants}
+            </div>
+            <br></br>
+            <div style={{ fontSize: "15px" }}>
+              {" "}
+              <span role="img" aria-label="person" style={{ fontSize: "25px" }}>
+                📍
+              </span>{" "}
+              {address}
             </div>
             <br></br>
             <div>
-              {renderDate[0]}/{renderDate[1]}/{renderDate[2]}
+              {renderDate[1]}/{renderDate[0]}/{renderDate[2]}
             </div>
             <div>{activity.time}</div>
-            <div>{address}</div>
+            <br></br>
           </div>
           <div className="home-activity-info">
+            <div style={{ textDecoration: "underline", fontWeight: "bold" }}>
+              Extra Info
+            </div>
             <p>{activity.info}</p>
           </div>
         </div>
         {activity.host === signedIn.username ? (
           <div className="home-activity-actions">
-            <button onClick={() => editAct()}>edit</button>
-            <button onClick={() => deleteAct()}>delete</button>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                reserve(e.target.elements.counter.value);
-              }}
-            >
-              <select name="counter" id="counter">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-              <button type="submit">reserve</button>
-            </form>
-            <button onClick={() => view()}>view</button>
+            {!reservedClicked ? (
+              <>
+                {/* <button onClick={() => editAct()}>edit</button>
+            <button onClick={() => deleteAct()}>delete</button> */}
+                <div className="view-more">
+                  <img src="/viewMore.png" />
+                  {/* going to open popover */}
+                </div>
+                <button
+                  onClick={() => {
+                    setReservedClicked(true);
+                  }}
+                >
+                  Reserve a spot
+                </button>{" "}
+                <button onClick={() => view()}>view</button>
+              </>
+            ) : (
+              <div className="reserver">
+                How many spots would you like to reserve?
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    reserve(e.target.elements.counter.value);
+                  }}
+                >
+                  <select name="counter" id="counter">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <button type="submit">Reserve</button>
+                  <button onClick={() => setReservedClicked(undefined)}>
+                    Cancel
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
         ) : (
           <div className="home-activity-actions">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                reserve(e.target.elements.counter.value);
-              }}
-            >
-              <select name="counter" id="counter">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-              <button type="submit">reserve</button>
-            </form>
+            <div>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  reserve(e.target.elements.counter.value);
+                }}
+              >
+                <select name="counter" id="counter">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <button type="submit">reserve</button>
+              </form>
+            </div>
             <button onClick={() => view()}>view</button>
           </div>
         )}

@@ -22,6 +22,7 @@ export default function ActivityCreator({
       const latitude = lat;
       const longitude = long;
       const privacy = e.target.elements.option.value;
+      console.log(time);
 
       await axios.post("http://localhost:4000/create-activity", {
         token,
