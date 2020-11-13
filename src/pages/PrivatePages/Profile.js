@@ -1,7 +1,7 @@
 import React from "react";
 import "../../style/master.css";
 import axios from "axios";
-import CompletedActiv from "../../components/DisplayComps/CompletedActiv";
+
 import ActivityTable from "../../components/DisplayComps/ActivityTable";
 import Button from "@material-ui/core/Button";
 import { navigate } from "@reach/router";
@@ -114,8 +114,7 @@ export default function Profile({ setSignedIn, signedIn }) {
             />
           </div>
         )}
-
-        {/* this could change from cards to a table , maybe? */}
+        <hr style={{ width: "1px", backgroundColor: "black" }}></hr>
         <div className="profilePage-middle">
           <div className="table-container">
             <div className="table-header">

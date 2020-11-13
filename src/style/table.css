@@ -2,8 +2,13 @@
   height: 90%;
 }
 
-.table-head {
-  border: 1px solid brown;
-  position: sticky;
-  top: 0;
+.participantLogo-container {
+  border: 1px solid red;
+  height: 35px;
+  width: 35px;
+}
+
+.participantLogo-container img {
+  height: 100%;
+  width: 100%;
 }

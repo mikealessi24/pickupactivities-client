@@ -2,8 +2,8 @@ import React from "react";
 import "../../style/HomeActivity.css";
 import axios from "axios";
 import { navigate } from "@reach/router";
-import ViewOtherProfile from "../../pages/PrivatePages/ViewOtherProfile";
-
+import FormatTime from "../../components/InputComps/FormatTime";
+import { Tooltip } from "@material-ui/core";
 export default function HomeActivity({
   activity,
   signedIn,
@@ -57,7 +57,6 @@ export default function HomeActivity({
         const resp = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
         );
-        console.log(resp.data.results[0].formatted_address);
         setAddress(resp.data.results[0].formatted_address);
       } catch (error) {
         console.log(error);
@@ -127,13 +126,20 @@ export default function HomeActivity({
             >
               @{activity.host}
             </h4>
-            <div style={{ fontSize: "20px" }}>
-              <span role="img" aria-label="person" style={{ fontSize: "25px" }}>
-                👥
-              </span>{" "}
-              {numJoined === null ? "0" : numJoined} /{" "}
-              {activity.numParticipants}
-            </div>
+            <Tooltip title="Number of Participants needed" placement="left">
+              <div style={{ fontSize: "20px" }}>
+                <span
+                  role="img"
+                  aria-label="person"
+                  style={{ fontSize: "25px" }}
+                >
+                  👥
+                </span>{" "}
+                {numJoined === null ? "0" : numJoined} /{" "}
+                {activity.numParticipants}
+              </div>
+            </Tooltip>
+            <br></br>
             <br></br>
             <div style={{ fontSize: "15px" }}>
               {" "}
@@ -146,7 +152,10 @@ export default function HomeActivity({
             <div>
               {renderDate[1]}/{renderDate[0]}/{renderDate[2]}
             </div>
-            <div>{activity.time}</div>
+            <br></br>
+            <div>
+              <FormatTime activity={activity} />
+            </div>
             <br></br>
           </div>
           <div className="home-activity-info">
@@ -201,24 +210,42 @@ export default function HomeActivity({
           </div>
         ) : (
           <div className="home-activity-actions">
-            <div>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  reserve(e.target.elements.counter.value);
-                }}
-              >
-                <select name="counter" id="counter">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-                <button type="submit">reserve</button>
-              </form>
-            </div>
-            <button onClick={() => view()}>view</button>
+            {!reservedClicked ? (
+              <>
+                {" "}
+                <div
+                  className="add-participants-icon"
+                  onClick={() => {
+                    setReservedClicked(true);
+                  }}
+                >
+                  <img src="/addUser.png" alt="add participants" />
+                </div>{" "}
+                <button onClick={() => view()}>view</button>{" "}
+              </>
+            ) : (
+              <div className="reserver">
+                How many spots would you like to reserve?
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    reserve(e.target.elements.counter.value);
+                  }}
+                >
+                  <select name="counter" id="counter">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <button type="submit">Reserve</button>
+                  <button onClick={() => setReservedClicked(undefined)}>
+                    Cancel
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -115,6 +115,7 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
                 </div>
               </div>
             </div>
+            <hr style={{ width: "1px", backgroundColor: "black" }}></hr>
             <div className="profilePage-middle">
               <div className="table-container">
                 <div className="table-header">

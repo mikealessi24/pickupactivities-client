@@ -127,3 +127,21 @@
   background-color: #00bc66;
   cursor: pointer;
 }
+
+.add-participants-icon {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  padding: 2px;
+}
+
+.add-participants-icon:hover {
+  cursor: pointer;
+  background-color: rgb(209, 208, 208);
+  border-radius: 500px;
+}
+
+.add-participants-icon img {
+  height: 100%;
+  width: 100%;
+}
