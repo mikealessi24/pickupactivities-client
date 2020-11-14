@@ -3,9 +3,11 @@ import axios from "axios";
 
 export default function FormatAddress({ activity }) {
   const [address, setAddress] = React.useState();
+
   React.useEffect(() => {
     (async function () {
       try {
+        console.log("sent to format address", activity);
         const lat = Number(activity.latitude);
         const lng = Number(activity.longitude);
         const resp = await axios.get(
@@ -17,6 +19,6 @@ export default function FormatAddress({ activity }) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [activity.latitude && activity.longitude]);
   return <>{address}</>;
 }

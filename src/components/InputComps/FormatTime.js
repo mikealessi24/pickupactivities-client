@@ -2,6 +2,7 @@ import React from "react";
 
 export default function FormatTime({ activity }) {
   const [formattedTime, setFormattedTime] = React.useState(undefined);
+  console.log("edit time", activity);
   React.useEffect(() => {
     const time = activity.time;
     const split = time.split(":");
@@ -13,7 +14,7 @@ export default function FormatTime({ activity }) {
       const newTime2 = `${subtract}:${split[1]} PM`;
       setFormattedTime(newTime2);
     }
-  }, []);
+  }, [activity.time]);
 
   return <>{formattedTime}</>;
 }

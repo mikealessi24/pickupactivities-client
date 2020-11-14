@@ -2,6 +2,8 @@ import React from "react";
 import "../../style/activity.css";
 import axios from "axios";
 import { navigate } from "@reach/router";
+import FormatTime from "../../components/InputComps/FormatTime";
+import FormatAddress from "../../components/InputComps/FormatAddress";
 
 export default function Activity({
   activity,
@@ -114,21 +116,24 @@ export default function Activity({
         <br></br>
         <div className="activity-content">
           <div className="text-header">
-            <div className="host" onClick={() => getUserProfile(activity.host)}>
-              Host: {activity.host}
-            </div>
-            <div>
+            <h4 className="host" onClick={() => getUserProfile(activity.host)}>
+              @{activity.host}
+            </h4>
+            <h4>
               {numJoined === null ? "0" : numJoined} /{" "}
               {activity.numParticipants}
-            </div>
+            </h4>
           </div>
           <div className="text-when">
             <div>
-              When: {renderDate[0]}/{renderDate[1]}/{renderDate[2]} at{" "}
-              {activity.time}
+              {renderDate[1]}/{renderDate[0]}/{renderDate[2]} at{" "}
+              <FormatTime activity={activity} />
             </div>
           </div>
-          <div className="address">Where: {address}</div>
+          <br></br>
+          <div className="address">
+            <FormatAddress activity={activity} />
+          </div>
         </div>
         <form
           onSubmit={(e) => {

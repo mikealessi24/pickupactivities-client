@@ -6,6 +6,7 @@ import "../../style/updatePage.css";
 import ActivityUpdater from "../../components/InputComps/ActivityUpdater";
 import { useLoadScript } from "@react-google-maps/api";
 import axios from "axios";
+import EditorActivity from "../../components/DisplayComps/EditorActivity";
 
 export default function Edit({ signedIn, selected }) {
   const [lat, setLat] = React.useState(undefined);
@@ -32,6 +33,7 @@ export default function Edit({ signedIn, selected }) {
           }
         );
         setOriginalAct(resp.data);
+        console.log("this is the original act", resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -91,33 +93,23 @@ export default function Edit({ signedIn, selected }) {
         <Button onClick={() => navigate("explore")}>Explore</Button>
         <Button onClick={() => navigate("/profile")}>Profile</Button>
       </div>
-      <div className="update-viewer-container">
-        <div className="update-viewer">
-          <div className="viewer-header">
-            <h3>{editTitle ? editTitle : originalAct && originalAct.title}</h3>
-          </div>
-          <div className="viewer-when">
-            <div>
-              Participants Needed:{" "}
-              {editNumber
-                ? editNumber
-                : originalAct && originalAct.numParticipants}
-            </div>
-            <div>
-              Date: {editDate ? editDate : originalAct && originalAct.date}
-            </div>
-            <div>
-              Time: {editTime ? editTime : originalAct && originalAct.time}{" "}
-            </div>
-            <div>
-              Address: {lat ? lat : originalAct && originalAct.latitude}{" "}
-              {long ? long : originalAct && originalAct.longitude}{" "}
-            </div>
-          </div>
-          <div className="viewer-content">
-            <p>{editInfo ? editInfo : originalAct && originalAct.info}</p>
-          </div>
+      <div className="edit-container">
+        <div className="edit-display">
+          {originalAct && (
+            <EditorActivity
+              signedIn={signedIn}
+              originalAct={originalAct}
+              editTitle={editTitle}
+              editInfo={editInfo}
+              editDate={editDate}
+              editNumber={editNumber}
+              editTime={editTime}
+              lat={lat}
+              long={long}
+            />
+          )}
         </div>
+
         <div className="editor">
           <ActivityUpdater
             setLat={setLat}

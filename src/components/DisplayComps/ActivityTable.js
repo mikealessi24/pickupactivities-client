@@ -22,14 +22,17 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ActivityTable({ signedIn, setSelected, user }) {
+export default function ActivityTable({ signedIn, setSelected, user, filter }) {
   const [activities, setActivities] = React.useState([]);
-
   React.useEffect(() => {
     (async function () {
+      const route =
+        filter === "host"
+          ? "http://localhost:4000/get-all-hosted"
+          : "http://localhost:4000/get-all-participated";
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const resp = await axios.post("http://localhost:4000/get-all-hosted", {
+        const resp = await axios.post(route, {
           token,
           user,
         });

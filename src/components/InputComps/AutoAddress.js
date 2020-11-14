@@ -48,7 +48,7 @@ export default function AutoAddress({ setLat, setLong }) {
           setValue(e.target.value);
         }}
         disabled={!ready}
-        placeholder="Enter activity address"
+        placeholder="Address..."
       />
       <ComboboxPopover>
         {status === "OK" &&

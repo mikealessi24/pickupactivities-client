@@ -1,19 +1,23 @@
 import React from "react";
 import "../../style/master.css";
 import axios from "axios";
-
 import ActivityTable from "../../components/DisplayComps/ActivityTable";
-import Button from "@material-ui/core/Button";
+import { Button } from "@material-ui/core/";
 import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 
 import EditProfile from "../../components/InputComps/EditProfile";
+import { findAllByTestId } from "@testing-library/react";
 
 export default function Profile({ setSignedIn, signedIn }) {
   const [s3Avi, setS3Avi] = React.useState("");
   const [clicked, setClicked] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(undefined);
   const [selected, setSelected] = React.useState([]);
+  const [filterClicked, setFilterClicked] = React.useState(false);
+  const [filter, setFilter] = React.useState("host");
 
   async function signOut() {
     try {
@@ -118,6 +122,30 @@ export default function Profile({ setSignedIn, signedIn }) {
         <div className="profilePage-middle">
           <div className="table-container">
             <div className="table-header">
+              {!filterClicked ? (
+                <div className="icon-cont">
+                  <div
+                    className="filter-icon"
+                    onClick={() => setFilterClicked(true)}
+                  >
+                    <FilterListIcon style={{ fontSize: "35px" }} />
+                  </div>
+                </div>
+              ) : (
+                <div className="table-filters">
+                  <h4 onClick={() => setFilter("host")}>Hosting</h4>
+                  <h4 onClick={() => setFilter("participant")}>
+                    Participating
+                  </h4>
+                  <div
+                    className="arrow"
+                    onClick={() => setFilterClicked(false)}
+                  >
+                    <ArrowLeftIcon style={{ fontSize: "20px" }} />
+                  </div>
+                </div>
+              )}
+
               <div className="activity-actions">
                 <button onClick={() => deleteAct()}>delete</button>
                 <button onClick={() => editAct()}>edit</button>
@@ -125,7 +153,11 @@ export default function Profile({ setSignedIn, signedIn }) {
               </div>
             </div>
 
-            <ActivityTable signedIn={signedIn} setSelected={setSelected} />
+            <ActivityTable
+              signedIn={signedIn}
+              setSelected={setSelected}
+              filter={filter}
+            />
           </div>
         </div>
       </div>

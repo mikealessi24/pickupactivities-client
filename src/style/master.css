@@ -120,7 +120,7 @@
 }
 
 .post-button:hover {
-  border: 2px solid white;
+  border: 2px solid black;
   cursor: pointer;
 }
 
@@ -264,14 +264,51 @@
   flex-direction: column;
   height: 95%;
   width: 95%;
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
 }
 
 .table-header {
   display: flex;
-  flex-direction: column;
   align-items: flex-end;
+  justify-content: space-between;
   height: 10%;
+  border: 1px solid red;
+}
+
+.table-filters {
+  display: flex;
+  width: 40%;
+  justify-content: space-evenly;
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  position: relative;
+  right: 30px;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.filter-icon {
+  border-radius: 500px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: 15px;
+}
+
+.filter-icon:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.icon-cont {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .activity-actions {
@@ -326,6 +363,7 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  background-color: #d3d7da;
 }
 
 .horizontal-header {
@@ -334,6 +372,7 @@
   display: flex;
   justify-content: center;
   height: 10%;
+  border-bottom: 2px solid black;
 }
 
 .horizontal-content {
@@ -348,10 +387,5 @@
 }
 
 .horizontal-map {
-  border: 1px solid black;
   width: 80%;
-}
-
-.about-user {
-  /* border: 1px solid green; */
 }
