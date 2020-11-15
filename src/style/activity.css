@@ -35,6 +35,11 @@
   justify-content: space-between;
 }
 
+.host {
+  margin: none;
+  padding: none;
+}
+
 .host:hover {
   color: #00bc66;
   cursor: pointer;
@@ -43,6 +48,7 @@
 .address {
   display: flex;
   flex-wrap: wrap;
+  font-size: 14px;
 }
 
 .host-avatar {

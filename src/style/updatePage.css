@@ -1,5 +1,6 @@
 .edit-container {
   display: flex;
+  align-items: center;
   height: 90%;
 }
 
@@ -47,4 +48,36 @@
 
 .participant-input input {
   width: 50px;
+}
+
+.creator {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.creator-content {
+  height: 90%;
+  width: 100%;
+  display: flex;
+}
+
+.img-display {
+  height: 100%;
+  width: 50%;
+}
+
+.img-display img {
+  height: 100%;
+  width: 100%;
+}
+
+.createform-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: whitesmoke;
 }

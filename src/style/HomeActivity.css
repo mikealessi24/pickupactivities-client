@@ -73,15 +73,22 @@
   flex-direction: column;
   align-items: center;
   border-top: 1px solid black;
+  border-top-left-radius: 5px;
+
   border-left: 1px solid black;
-  border-bottom: 1px solid black;
 }
 
 .home-activity-actions {
   height: 10%;
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  justify-content: space-between;
+  border-top: 1px solid black;
+}
+
+.public-actions {
+  display: flex;
+  align-items: center;
 }
 
 .home-activity-actions form {
@@ -95,7 +102,6 @@
 }
 
 .view-more {
-  border: 1px solid red;
   height: 30px;
   width: 30px;
   margin: 5px;
@@ -108,7 +114,7 @@
 }
 
 .view-more img:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgb(209, 208, 208);
 }
 
 .host-display {

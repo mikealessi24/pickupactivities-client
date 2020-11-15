@@ -3,7 +3,9 @@ import "../../style/HomeActivity.css";
 import axios from "axios";
 import { navigate } from "@reach/router";
 import FormatTime from "../../components/InputComps/FormatTime";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Button } from "@material-ui/core";
+import ViewMorePopover from "./ViewMorePopover";
+import SearchIcon from "@material-ui/icons/Search";
 export default function HomeActivity({
   activity,
   signedIn,
@@ -141,7 +143,7 @@ export default function HomeActivity({
             </Tooltip>
             <br></br>
             <br></br>
-            <div style={{ fontSize: "15px" }}>
+            <div style={{ fontSize: "14px" }}>
               {" "}
               <span role="img" aria-label="person" style={{ fontSize: "25px" }}>
                 📍
@@ -169,20 +171,24 @@ export default function HomeActivity({
           <div className="home-activity-actions">
             {!reservedClicked ? (
               <>
-                {/* <button onClick={() => editAct()}>edit</button>
-            <button onClick={() => deleteAct()}>delete</button> */}
-                <div className="view-more">
-                  <img src="/viewMore.png" />
-                  {/* going to open popover */}
+                <div className="public-actions">
+                  <div
+                    className="add-participants-icon"
+                    onClick={() => {
+                      setReservedClicked(true);
+                    }}
+                  >
+                    <Tooltip title="Add participants" position="top">
+                      <img src="/addUser.png" alt="add participants" />
+                    </Tooltip>
+                  </div>{" "}
+                  <Button onClick={() => view()}>
+                    <SearchIcon /> View
+                  </Button>
                 </div>
-                <button
-                  onClick={() => {
-                    setReservedClicked(true);
-                  }}
-                >
-                  Reserve a spot
-                </button>{" "}
-                <button onClick={() => view()}>view</button>
+                <div className="view-more">
+                  <ViewMorePopover deleteAct={deleteAct} editAct={editAct} />
+                </div>
               </>
             ) : (
               <div className="reserver">
@@ -212,16 +218,21 @@ export default function HomeActivity({
           <div className="home-activity-actions">
             {!reservedClicked ? (
               <>
-                {" "}
-                <div
-                  className="add-participants-icon"
-                  onClick={() => {
-                    setReservedClicked(true);
-                  }}
-                >
-                  <img src="/addUser.png" alt="add participants" />
-                </div>{" "}
-                <button onClick={() => view()}>view</button>{" "}
+                <div className="public-actions">
+                  <div
+                    className="add-participants-icon"
+                    onClick={() => {
+                      setReservedClicked(true);
+                    }}
+                  >
+                    <Tooltip title="Add participants" position="top">
+                      <img src="/addUser.png" alt="add participants" />
+                    </Tooltip>
+                  </div>
+                  <Button onClick={() => view()}>
+                    <SearchIcon /> View
+                  </Button>
+                </div>
               </>
             ) : (
               <div className="reserver">

@@ -4,6 +4,8 @@ import axios from "axios";
 import FormatTime from "../../components/InputComps/FormatTime";
 import { Tooltip } from "@material-ui/core";
 import FormatAddress from "../InputComps/FormatAddress";
+import { Button } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 
 export default function EditorActivity({
   signedIn,
@@ -124,11 +126,19 @@ export default function EditorActivity({
           </div>
         </div>
         <div className="home-activity-actions">
+          <div className="public-actions">
+            <div className="add-participants-icon">
+              <Tooltip title="Add participants" position="top">
+                <img src="/addUser.png" alt="add participants" />
+              </Tooltip>
+            </div>{" "}
+            <Button>
+              <SearchIcon /> View
+            </Button>
+          </div>
           <div className="view-more">
             <img src="/viewMore.png" />
           </div>
-          <button>Reserve a spot</button>
-          <button>view</button>
         </div>
       </div>
     </div>

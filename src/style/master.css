@@ -356,6 +356,11 @@
   width: 22px;
 }
 
+.view-following-user:hover {
+  color: #00bc66;
+  cursor: pointer;
+}
+
 /* horizontal page layout */
 
 .horizontal-page {

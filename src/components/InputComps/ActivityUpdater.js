@@ -58,27 +58,6 @@ export default function ActivityUpdater({
           </Tooltip>
         </div>
 
-        {/* <label>Privacy</label>
-        <label>
-          Priavte
-          <input
-            type="radio"
-            id="yes"
-            name="option"
-            value="yes"
-            onChange={(e) => setEditPrivate(e.target.value)}
-          />
-        </label>
-        <label>
-          Public
-          <input
-            type="radio"
-            id="no"
-            name="option"
-            value="no"
-            onChange={(e) => setEditPrivate(e.target.value)}
-          />
-        </label> */}
         <textarea
           id="info"
           rows="4"

@@ -2,6 +2,8 @@ import React from "react";
 import AutoAddress from "../../components/InputComps/AutoAddress";
 import axios from "axios";
 import { navigate } from "@reach/router";
+import { Tooltip } from "@material-ui/core";
+import "../../style/updatePage.css";
 
 export default function ActivityCreator({
   setLat,
@@ -21,7 +23,6 @@ export default function ActivityCreator({
       const time = e.target.elements.time.value;
       const latitude = lat;
       const longitude = long;
-      const privacy = e.target.elements.option.value;
       console.log(time);
 
       await axios.post("http://localhost:4000/create-activity", {
@@ -33,7 +34,6 @@ export default function ActivityCreator({
         time,
         latitude,
         longitude,
-        private: privacy,
       });
       window.alert("success");
       navigate("/home");
@@ -44,31 +44,29 @@ export default function ActivityCreator({
   }
 
   return (
-    <form
-      onSubmit={(e) => createActivity(e)}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        border: "1px solid red",
-      }}
-    >
-      <input type="text" id="title" />
-      <textarea id="info" />
-      <input type="number" id="numPar" />
-      <input type="date" id="date" />
-      <input type="time" id="time" />
-      <AutoAddress setLat={setLat} setLong={setLong} />
-      <label>Privacy</label>
-      <label>
-        Priavte
-        <input type="radio" id="yes" name="option" value="yes" />
-      </label>
-      <label>
-        Public
-        <input type="radio" id="no" name="option" value="no" />
-      </label>
+    <div className="createform-container">
+      <form onSubmit={(e) => createActivity(e)} className="form">
+        <div className="title-input">
+          <input type="text" placeholder="Title..." id="title" />
+          <AutoAddress setLat={setLat} setLong={setLong} />
+        </div>
 
-      <button type="submit">click</button>
-    </form>
+        <div className="date-input">
+          <input type="date" id="date" />
+        </div>
+        <div className="time-input">
+          <input type="time" id="time" />
+        </div>
+        <div className="participant-input">
+          <Tooltip title="Number of participants needed" placement="top">
+            <input type="number" placeholder="0" id="numPar" />
+          </Tooltip>
+        </div>
+
+        <textarea id="info" rows="4" cols="50" />
+
+        <button type="submit">click</button>
+      </form>
+    </div>
   );
 }

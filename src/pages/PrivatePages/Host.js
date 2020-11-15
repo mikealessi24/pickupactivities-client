@@ -1,7 +1,7 @@
 import React from "react";
 import { navigate } from "@reach/router";
 import { Button } from "@material-ui/core";
-import "../../style/master.css";
+import "../../style/updatePage.css";
 import ActivityCreator from "../../components/InputComps/ActivityCreator";
 import { useLoadScript } from "@react-google-maps/api";
 
@@ -24,13 +24,23 @@ export default function Host({ signedIn }) {
         <Button onClick={() => navigate("explore")}>Explore</Button>
         <Button onClick={() => navigate("/profile")}>Profile</Button>
       </div>
-      <ActivityCreator
-        setLat={setLat}
-        setLong={setLong}
-        lat={lat}
-        long={long}
-        signedIn={signedIn}
-      />
+      <div className="creator-content">
+        <div className="img-display">
+          <img
+            src="https://www.vmcdn.ca/f/files/airdrietoday/import/23/2018/06/GT-20160128-ACV1101-301289976-AR.jpeg;w=800"
+            alt="pickup games"
+          />
+        </div>
+        <div className="creator">
+          <ActivityCreator
+            setLat={setLat}
+            setLong={setLong}
+            lat={lat}
+            long={long}
+            signedIn={signedIn}
+          />
+        </div>
+      </div>
     </div>
   );
 }

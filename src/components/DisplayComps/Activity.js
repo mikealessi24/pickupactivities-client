@@ -116,12 +116,12 @@ export default function Activity({
         <br></br>
         <div className="activity-content">
           <div className="text-header">
-            <h4 className="host" onClick={() => getUserProfile(activity.host)}>
-              @{activity.host}
-            </h4>
-            <h4>
+            <div style={{ fontSize: "20px" }}>
               {numJoined === null ? "0" : numJoined} /{" "}
               {activity.numParticipants}
+            </div>
+            <h4 className="host" onClick={() => getUserProfile(activity.host)}>
+              @{activity.host}
             </h4>
           </div>
           <div className="text-when">

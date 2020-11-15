@@ -184,6 +184,7 @@ export default function Home({
                     <div
                       style={{ marginLeft: "10px" }}
                       onClick={() => getUserProfile(following.beingFollowed)}
+                      className="view-following-user"
                     >
                       @{following.beingFollowed}
                     </div>

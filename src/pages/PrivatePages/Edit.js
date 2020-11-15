@@ -48,7 +48,7 @@ export default function Edit({ signedIn, selected }) {
     const numParticipants = editNumber
       ? editNumber
       : originalAct.numParticipants;
-    const info = editNumber ? editNumber : originalAct.info;
+    const info = editInfo ? editInfo : originalAct.info;
     const date = editDate ? editDate : originalAct.date;
     const time = editTime ? editTime : originalAct.time;
     const latitude = lat ? lat : originalAct.latitude;
