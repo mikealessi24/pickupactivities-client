@@ -7,17 +7,21 @@ import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
-
+import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
+import { Tooltip } from "@material-ui/core";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
 import EditProfile from "../../components/InputComps/EditProfile";
-import { findAllByTestId } from "@testing-library/react";
 
 export default function Profile({ setSignedIn, signedIn }) {
   const [s3Avi, setS3Avi] = React.useState("");
   const [clicked, setClicked] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(undefined);
-  const [selected, setSelected] = React.useState([]);
+  const [selected, setSelected] = React.useState(undefined);
   const [filterClicked, setFilterClicked] = React.useState(false);
   const [filter, setFilter] = React.useState("host");
+  const [reserver, setReserver] = React.useState(false);
+  const [status, setStatus] = React.useState(undefined);
 
   async function signOut() {
     try {
@@ -45,6 +49,10 @@ export default function Profile({ setSignedIn, signedIn }) {
           activityId,
         }
       );
+      setStatus({ message: "Successfully deleted activity", type: "success" });
+      setTimeout(function () {
+        window.location.reload(true);
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +60,32 @@ export default function Profile({ setSignedIn, signedIn }) {
 
   function editAct() {
     navigate(`/edit/${selected}`);
+  }
+
+  async function reserve(count) {
+    try {
+      const token = signedIn.signInUserSession.idToken.jwtToken;
+      const activityId = selected;
+      const counter = count;
+      const resp = await axios.post("http://localhost:4000/add-participant", {
+        token,
+        activityId,
+        counter,
+      });
+      setStatus({
+        message: `Successfully reserved ${count} spots`,
+        type: "success",
+      });
+      setTimeout(function () {
+        window.location.reload(true);
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+      setStatus({
+        message: `Cannot reserve ${count} spots`,
+        type: "error",
+      });
+    }
   }
 
   React.useEffect(() => {
@@ -83,6 +117,7 @@ export default function Profile({ setSignedIn, signedIn }) {
 
   return (
     <div className="main-page">
+      {status && <SnackBarAlert status={status} setStatus={setStatus} />}
       <div className="header">
         <Button onClick={() => signOut()}>Sign out</Button>
       </div>
@@ -94,17 +129,27 @@ export default function Profile({ setSignedIn, signedIn }) {
                 <img src={s3Avi} alt="avatar" />
               </div>
               <div className="about-user">
-                {currentUser && currentUser.firstname}{" "}
-                {currentUser && currentUser.lastname}
+                <div className="about-name">
+                  <h4>
+                    {currentUser && currentUser.firstname}{" "}
+                    {currentUser && currentUser.lastname}
+                  </h4>
+                </div>
+                <div className="about-info">
+                  <p style={{ fontSize: "14px" }}>
+                    {currentUser && currentUser.about}
+                  </p>
+                </div>
               </div>
-              <div>{currentUser && currentUser.about}</div>
+
               <div className="user-actions">
-                {/* could bring up all activities/games in any location */}
                 <Button onClick={() => navigate("/home")}>Home</Button>
                 <Button onClick={() => navigate("explore")}>Explore</Button>
                 <Button onClick={() => expandEdit()}>Edit Profile</Button>
                 <div className="post-button">
-                  <Button>Host an Activity</Button>
+                  <Button onClick={() => navigate("/host-activity")}>
+                    Host an Activity
+                  </Button>
                 </div>
               </div>
             </div>
@@ -133,10 +178,39 @@ export default function Profile({ setSignedIn, signedIn }) {
                 </div>
               ) : (
                 <div className="table-filters">
-                  <h4 onClick={() => setFilter("host")}>Hosting</h4>
-                  <h4 onClick={() => setFilter("participant")}>
-                    Participating
-                  </h4>
+                  {filter === "host" ? (
+                    <>
+                      <h4
+                        onClick={() => setFilter("host")}
+                        className="current-filter"
+                      >
+                        Hosting
+                      </h4>
+                      <h4
+                        onClick={() => setFilter("participant")}
+                        className="table-filter"
+                      >
+                        Participating
+                      </h4>{" "}
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <h4
+                        onClick={() => setFilter("host")}
+                        className="table-filter"
+                      >
+                        Hosting
+                      </h4>
+                      <h4
+                        onClick={() => setFilter("participant")}
+                        className="current-filter"
+                      >
+                        Participating
+                      </h4>{" "}
+                    </>
+                  )}
+
                   <div
                     className="arrow"
                     onClick={() => setFilterClicked(false)}
@@ -145,12 +219,64 @@ export default function Profile({ setSignedIn, signedIn }) {
                   </div>
                 </div>
               )}
-
-              <div className="activity-actions">
-                <button onClick={() => deleteAct()}>delete</button>
-                <button onClick={() => editAct()}>edit</button>
-                <button>reserve</button>
-              </div>
+              {selected ? (
+                <>
+                  {" "}
+                  {reserver === false ? (
+                    <>
+                      <div className="activity-actions">
+                        <div className="add-partic">
+                          <Tooltip title="Add participants" position="top">
+                            <img
+                              src="/addUser.png"
+                              alt="add participants"
+                              onClick={() => setReserver(true)}
+                            />
+                          </Tooltip>
+                        </div>
+                        <div>
+                          <Button onClick={() => editAct()}>
+                            <EditIcon />
+                            Edit
+                          </Button>
+                        </div>
+                        <div>
+                          <Button onClick={() => deleteAct()}>
+                            <DeleteIcon />
+                            Delete
+                          </Button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="profile-reserver">
+                        How many spots would you like to reserve?
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            reserve(e.target.elements.counter.value);
+                          }}
+                        >
+                          <select name="counter" id="counter">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>
+                          <button type="submit">Reserve</button>
+                          <button onClick={() => setReserver(false)}>
+                            Cancel
+                          </button>
+                        </form>
+                      </div>
+                    </>
+                  )}{" "}
+                </>
+              ) : (
+                <></>
+              )}
             </div>
 
             <ActivityTable

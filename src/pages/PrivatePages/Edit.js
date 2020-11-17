@@ -7,6 +7,7 @@ import ActivityUpdater from "../../components/InputComps/ActivityUpdater";
 import { useLoadScript } from "@react-google-maps/api";
 import axios from "axios";
 import EditorActivity from "../../components/DisplayComps/EditorActivity";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
 
 export default function Edit({ signedIn, selected }) {
   const [lat, setLat] = React.useState(undefined);
@@ -19,6 +20,8 @@ export default function Edit({ signedIn, selected }) {
   const [editDate, setEditDate] = React.useState(undefined);
   const [editTime, setEditTime] = React.useState(undefined);
   const [editPrivate, setEditPrivate] = React.useState(undefined);
+
+  const [status, setStatus] = React.useState(undefined);
 
   React.useEffect(() => {
     (async function () {
@@ -71,10 +74,13 @@ export default function Edit({ signedIn, selected }) {
           private: privacy,
         }
       );
-      alert("activity updated");
-      navigate("/profile");
+      setStatus({ message: "Successfully updated activity", type: "success" });
+      setTimeout(function () {
+        navigate("/profile");
+      }, 2000);
     } catch (error) {
       console.log(error);
+      setStatus({ message: "Oops! Something went wrong", type: "error" });
     }
   }
 
@@ -94,6 +100,7 @@ export default function Edit({ signedIn, selected }) {
         <Button onClick={() => navigate("/profile")}>Profile</Button>
       </div>
       <div className="edit-container">
+        {status && <SnackBarAlert status={status} setStatus={setStatus} />}
         <div className="edit-display">
           {originalAct && (
             <EditorActivity

@@ -1,0 +1,19 @@
+.follow-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  border: 2px solid #00bc66;
+  background-color: whitesmoke;
+  border-radius: 100px;
+  width: 100%;
+}
+
+.follow-button:hover {
+  border: 2px solid black;
+  background-color: #00bc66;
+  cursor: pointer;
+}
+
+.follow-button Button {
+  width: 100%;
+}

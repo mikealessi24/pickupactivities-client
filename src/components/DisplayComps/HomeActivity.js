@@ -6,6 +6,8 @@ import FormatTime from "../../components/InputComps/FormatTime";
 import { Tooltip, Button } from "@material-ui/core";
 import ViewMorePopover from "./ViewMorePopover";
 import SearchIcon from "@material-ui/icons/Search";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
+
 export default function HomeActivity({
   activity,
   signedIn,
@@ -16,7 +18,7 @@ export default function HomeActivity({
   const [activityAvatar, setActivityAvatar] = React.useState(undefined);
   const [numJoined, setNumJoined] = React.useState(undefined);
   const [reservedClicked, setReservedClicked] = React.useState(undefined);
-
+  const [status, setStatus] = React.useState(undefined);
   const renderDate = activity.date.split("-").reverse();
   const [address, setAddress] = React.useState(undefined);
 
@@ -75,12 +77,19 @@ export default function HomeActivity({
         activityId,
         counter,
       });
-      console.log(resp);
-      alert(`${count} spots reserved`);
-      window.location.reload(true);
+      setStatus({
+        message: `Successfully reserved ${counter} spots`,
+        type: "success",
+      });
+      setTimeout(function () {
+        window.location.reload(true);
+      }, 1000);
     } catch (error) {
       console.log(error);
-      alert(`cannot reserve ${count} spots`);
+      setStatus({
+        message: `Cannot reserve ${count} spots`,
+        type: "error",
+      });
     }
   }
 
@@ -96,6 +105,10 @@ export default function HomeActivity({
           activityId,
         }
       );
+      setStatus({ message: "Successfully deleted activity", type: "success" });
+      setTimeout(function () {
+        window.location.reload(true);
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -113,6 +126,7 @@ export default function HomeActivity({
 
   return (
     <div className="home-activity">
+      {status && <SnackBarAlert status={status} setStatus={setStatus} />}
       <div className="home-activity-body">
         <div className="home-activity-header">
           <h2 className="home-title">{activity.title}</h2>

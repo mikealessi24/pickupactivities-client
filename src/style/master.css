@@ -6,6 +6,7 @@
 
 .header {
   height: 5%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -43,6 +44,28 @@
   align-items: center;
   border-radius: 3px;
   /* background-color: #00416b; */
+}
+
+.about-user {
+  width: 200px;
+}
+
+.about-name {
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+}
+
+.about-name h4 {
+  margin: none;
+  padding: none;
+}
+
+.about-info {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+  overflow-y: scroll;
 }
 
 .profile-left-move {
@@ -122,6 +145,10 @@
 .post-button:hover {
   border: 2px solid black;
   cursor: pointer;
+}
+
+.post-button Button {
+  width: 100%;
 }
 
 .middle-container {
@@ -262,9 +289,11 @@
 .table-container {
   display: flex;
   flex-direction: column;
-  height: 95%;
-  width: 95%;
-  border: 1px solid blue;
+  height: 90%;
+  width: 90%;
+  border: 2px solid black;
+  border-radius: 5px;
+  box-shadow: 4px 8px 12px 0 rgba(0, 0, 0, 0.5);
 }
 
 .table-header {
@@ -272,13 +301,26 @@
   align-items: flex-end;
   justify-content: space-between;
   height: 10%;
-  border: 1px solid red;
+  background-color: #00bc66;
 }
 
 .table-filters {
   display: flex;
   width: 40%;
   justify-content: space-evenly;
+}
+
+.table-filter:hover {
+  cursor: pointer;
+}
+
+.current-filter {
+  color: white;
+  text-decoration: underline;
+}
+
+.current-filter:hover {
+  cursor: pointer;
 }
 
 .arrow {
@@ -312,7 +354,50 @@
 }
 
 .activity-actions {
-  border: 1px solid blue;
+  width: 300px;
+  height: 99.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #fafafa;
+}
+
+.activity-actions Button {
+  color: black;
+}
+
+.otherProfile-actions {
+  width: 100px;
+  height: 99.5%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #fafafa;
+}
+
+.add-partic {
+  height: 30px;
+  border-radius: 500px;
+
+  padding: 5px;
+  margin: 10px;
+}
+
+.add-partic:hover {
+  cursor: pointer;
+}
+
+.add-partic img {
+  height: 100%;
+}
+
+.profile-reserver {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 17px;
+  width: 600px;
+  height: 100%;
+  background-color: #fafafa;
 }
 
 .right-container {

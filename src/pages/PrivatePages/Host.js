@@ -26,10 +26,7 @@ export default function Host({ signedIn }) {
       </div>
       <div className="creator-content">
         <div className="img-display">
-          <img
-            src="https://www.vmcdn.ca/f/files/airdrietoday/import/23/2018/06/GT-20160128-ACV1101-301289976-AR.jpeg;w=800"
-            alt="pickup games"
-          />
+          <img src="/pickupLogo.png" alt="pickup games" />
         </div>
         <div className="creator">
           <ActivityCreator

@@ -11,6 +11,9 @@ import Paper from "@material-ui/core/Paper";
 import "../../style/table.css";
 import axios from "axios";
 import FormatAddress from "../../components/InputComps/FormatAddress";
+import FormatTime from "../../components/InputComps/FormatTime";
+import FormatDate from "../InputComps/FormatDate";
+import { actionButton } from "aws-amplify";
 
 const useStyles = makeStyles({
   table: {
@@ -19,17 +22,22 @@ const useStyles = makeStyles({
   container: {
     height: "100%",
     overflowY: "scroll",
+    backgroundColor: "#fafafa",
+    borderBottomLeftRadius: "5px",
+    borderBottomRightRadius: "5px",
   },
 });
 
 export default function ActivityTable({ signedIn, setSelected, user, filter }) {
   const [activities, setActivities] = React.useState([]);
+  const [checked, setChecked] = React.useState(false);
   React.useEffect(() => {
     (async function () {
       const route =
         filter === "host"
           ? "http://localhost:4000/get-all-hosted"
           : "http://localhost:4000/get-all-participated";
+      console.log("THE USER", user);
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
         const resp = await axios.post(route, {
@@ -51,9 +59,19 @@ export default function ActivityTable({ signedIn, setSelected, user, filter }) {
     arr.push(id);
   }
 
+  function setAction(id) {
+    setSelected(id);
+    setChecked(true);
+  }
+
+  function unsetAction() {
+    setSelected(undefined);
+    setChecked(false);
+  }
+
   return (
     <div className="table">
-      <TableContainer component={Paper} className={classes.container}>
+      <TableContainer className={classes.container}>
         <Table stickyHeader className={classes.table} aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -69,79 +87,75 @@ export default function ActivityTable({ signedIn, setSelected, user, filter }) {
           <TableBody>
             {activities.map((activity) => (
               <>
-                {activity.completed === "yes" ? (
-                  <TableRow key={activity.id}>
-                    <TableCell>
-                      <span
-                        role="img"
-                        aria-label="person"
-                        style={{
-                          fontSize: "22px",
-                          position: "relative",
-                          left: "10px",
-                        }}
-                      >
-                        ✅
-                      </span>
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {activity.title}
-                    </TableCell>
-                    <TableCell>@{activity.host}</TableCell>
-                    <TableCell align="right">{activity.date}</TableCell>
-                    <TableCell align="right">{activity.time}</TableCell>
-                    <TableCell align="right">
-                      <FormatAddress activity={activity} />
-                    </TableCell>
-                    <TableCell align="right">
-                      {activity.completed === "yes" ? "Complete" : "Active"}
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  <TableRow key={activity.id}>
-                    {activity.host === signedIn.username ? (
+                <TableRow key={activity.id}>
+                  <>
+                    {activity.completed === "yes" ? (
                       <>
                         <TableCell>
-                          <Checkbox onChange={() => setSelected(activity.id)} />
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {activity.title}
-                        </TableCell>
-                        <TableCell>@{activity.host}</TableCell>
-                        <TableCell align="right">{activity.date}</TableCell>
-                        <TableCell align="right">{activity.time}</TableCell>
-                        <TableCell align="right">
-                          {" "}
-                          <FormatAddress activity={activity} />
-                        </TableCell>
-                        <TableCell align="right">
-                          {activity.completed === "yes" ? "Complete" : "Active"}
+                          <span
+                            role="img"
+                            aria-label="person"
+                            style={{
+                              fontSize: "22px",
+                              position: "relative",
+                              left: "10px",
+                            }}
+                          >
+                            ✅
+                          </span>
                         </TableCell>
                       </>
                     ) : (
                       <>
-                        <TableCell>
-                          <div className="participantLogo-container">
-                            <img src="/participantLogo.png" />
-                          </div>
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {activity.title}
-                        </TableCell>
-                        <TableCell>@{activity.host}</TableCell>
-                        <TableCell align="right">{activity.date}</TableCell>
-                        <TableCell align="right">{activity.time}</TableCell>
-                        <TableCell align="right">
-                          {" "}
-                          <FormatAddress activity={activity} />
-                        </TableCell>
-                        <TableCell align="right">
-                          {activity.completed === "yes" ? "Complete" : "Active"}
-                        </TableCell>
+                        {activity.host === signedIn.username ? (
+                          <>
+                            <TableCell>
+                              {checked === false ? (
+                                <Checkbox
+                                  onChange={() => setAction(activity.id)}
+                                />
+                              ) : (
+                                <Checkbox onChange={() => unsetAction()} />
+                              )}
+                            </TableCell>
+                          </>
+                        ) : (
+                          <>
+                            <TableCell>
+                              <span
+                                role="img"
+                                aria-label="person"
+                                style={{
+                                  fontSize: "22px",
+                                  position: "relative",
+                                  left: "10px",
+                                }}
+                              >
+                                ✅
+                              </span>
+                            </TableCell>
+                          </>
+                        )}
                       </>
                     )}
-                  </TableRow>
-                )}
+                  </>
+                  <TableCell component="th" scope="row">
+                    {activity.title}
+                  </TableCell>
+                  <TableCell>@{activity.host}</TableCell>
+                  <TableCell align="right">
+                    <FormatDate activity={activity} />
+                  </TableCell>
+                  <TableCell align="right">
+                    <FormatTime activity={activity} />
+                  </TableCell>
+                  <TableCell align="right">
+                    <FormatAddress activity={activity} />
+                  </TableCell>
+                  <TableCell align="right">
+                    {activity.completed === "yes" ? "Complete" : "Active"}
+                  </TableCell>
+                </TableRow>
               </>
             ))}
           </TableBody>

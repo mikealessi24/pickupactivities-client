@@ -14,20 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
-import axios from "axios";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#00bc66",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -46,8 +34,21 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: "#00bc66",
   },
 }));
+
+function randomPic() {
+  const arr = [
+    "defaultAvatar/jersey1.png",
+    "defaultAvatar/jersey2.png",
+    "defaultAvatar/jersey3.png",
+    "defaultAvatar/jersey4.png",
+    "defaultAvatar/jersey5.png",
+    "defaultAvatar/jersey6.png",
+  ];
+  return arr[Math.floor(Math.random() * 6)];
+}
 
 export default function ConfirmSignUp({ username, password, setSignedIn }) {
   const classes = useStyles();
@@ -57,7 +58,7 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <LockOutlinedIcon style={{ fill: "black" }} />
         </Avatar>
         <Typography component="h1" variant="h5">
           Confirm Sign Up
@@ -68,31 +69,43 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
           onSubmit={(e) => {
             e.preventDefault();
             const code = e.target.elements.code.value;
+
             (async function () {
               try {
                 const resp = await Auth.confirmSignUp(username, code);
+                console.log(resp);
                 if (resp === "SUCCESS") {
                   const currentUser = await Auth.signIn(username, password);
+                  console.log("current user", currentUser);
                   const idToken =
                     currentUser.signInUserSession.idToken.jwtToken;
+                  console.log(idToken);
                   setSignedIn(currentUser);
-                  navigate("/home");
+                  console.log("outside create");
 
-                  //this is where the user will be entered into sql and could be given
-                  // a default avatar picture
+                  setTimeout(function () {
+                    navigate("/home");
+                  }, 2000);
 
-                  // const  await Auth.currentAuthenticatedUser());
+                  const pic = randomPic();
+                  await Axios.post("http://localhost:4000/create-user", {
+                    token: idToken,
+                    avatar: pic,
+                  });
+                  console.log("hello");
+                  setSignedIn(currentUser);
 
-                  await axios
-                    .post("http://localhost:4000/create-user", {
-                      token: idToken,
-                      avatar: "defaultAvatar/goldenRet.png",
-                    })
-                    .then(() => {
-                      setSignedIn(currentUser);
-                      navigate("/home");
-                    })
-                    .catch((error) => console.log(error));
+                  //   await axios
+                  //     .post("http://localhost:4000/create-user", {
+                  //       token: idToken,
+                  //       avatar: "defaultAvatar/goldenRet.png",
+                  //     })
+                  //     .then(() => {
+                  //       console.log("never gets here");
+                  //       setSignedIn(currentUser);
+                  //       navigate("/home");
+                  //     })
+                  //     .catch((error) => console.log("ERROR", error));
                 }
               } catch (error) {
                 console.log("error confirming sign up", error);
@@ -113,27 +126,14 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
                 autoFocus
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+          <Button type="submit" fullWidth className={classes.submit}>
             Confirm
           </Button>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <Box mt={5}></Box>
     </Container>
   );
 }

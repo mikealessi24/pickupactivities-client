@@ -4,6 +4,7 @@ import axios from "axios";
 import { navigate } from "@reach/router";
 import FormatTime from "../../components/InputComps/FormatTime";
 import FormatAddress from "../../components/InputComps/FormatAddress";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
 
 export default function Activity({
   activity,
@@ -15,6 +16,8 @@ export default function Activity({
   const [numJoined, setNumJoined] = React.useState(undefined);
   const [activityAvatar, setActivityAvatar] = React.useState(undefined);
   const [address, setAddress] = React.useState(undefined);
+
+  const [status, setStatus] = React.useState(undefined);
 
   const renderDate = activity.date.split("-").reverse();
 
@@ -86,11 +89,19 @@ export default function Activity({
         counter,
       });
       console.log(resp);
-      alert("spot reserved");
-      window.location.reload(true);
+      setStatus({
+        message: `Successfully reserved ${counter} spots`,
+        type: "success",
+      });
+      setTimeout(function () {
+        window.location.reload(true);
+      }, 1000);
     } catch (error) {
       console.log(error);
-      alert(`cannot reserve ${count} spots`);
+      setStatus({
+        message: `Cannot reserve ${count} spots`,
+        type: "error",
+      });
     }
   }
 
@@ -107,6 +118,7 @@ export default function Activity({
         }}
         onMouseLeave={() => unHighlight(activity.id)}
       >
+        {status && <SnackBarAlert status={status} setStatus={setStatus} />}
         <div className="activity-title">
           <h3>{activity.title}</h3>
           <div className="host-avatar">

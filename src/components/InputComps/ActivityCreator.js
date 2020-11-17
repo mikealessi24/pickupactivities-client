@@ -4,6 +4,7 @@ import axios from "axios";
 import { navigate } from "@reach/router";
 import { Tooltip } from "@material-ui/core";
 import "../../style/updatePage.css";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
 
 export default function ActivityCreator({
   setLat,
@@ -12,6 +13,8 @@ export default function ActivityCreator({
   long,
   signedIn,
 }) {
+  const [status, setStatus] = React.useState(undefined);
+
   async function createActivity(e) {
     try {
       e.preventDefault();
@@ -23,7 +26,6 @@ export default function ActivityCreator({
       const time = e.target.elements.time.value;
       const latitude = lat;
       const longitude = long;
-      console.log(time);
 
       await axios.post("http://localhost:4000/create-activity", {
         token,
@@ -35,11 +37,13 @@ export default function ActivityCreator({
         latitude,
         longitude,
       });
-      window.alert("success");
-      navigate("/home");
+      setStatus({ message: "Successfully created activity", type: "success" });
+      setTimeout(function () {
+        navigate("/home");
+      }, 2000);
     } catch (error) {
       console.log(error);
-      window.alert("something went wrong");
+      setStatus({ message: "Oops! Something went wrong", type: "error" });
     }
   }
 
@@ -67,6 +71,7 @@ export default function ActivityCreator({
 
         <button type="submit">click</button>
       </form>
+      {status && <SnackBarAlert status={status} setStatus={setStatus} />}
     </div>
   );
 }
