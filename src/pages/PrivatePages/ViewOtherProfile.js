@@ -178,13 +178,13 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
                             onClick={() => setFilter("host")}
                             className="current-filter"
                           >
-                            Hosting
+                            Host
                           </h4>
                           <h4
                             onClick={() => setFilter("participant")}
                             className="table-filter"
                           >
-                            Participating
+                            Participant
                           </h4>{" "}
                         </>
                       ) : (
@@ -194,13 +194,13 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
                             onClick={() => setFilter("host")}
                             className="table-filter"
                           >
-                            Hosting
+                            Host
                           </h4>
                           <h4
                             onClick={() => setFilter("participant")}
                             className="current-filter"
                           >
-                            Participating
+                            Participant
                           </h4>{" "}
                         </>
                       )}

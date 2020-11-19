@@ -2,9 +2,13 @@ import React from "react";
 import uuid from "uuid/dist/v4";
 import { Storage } from "aws-amplify";
 import axios from "axios";
+import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import "../../style/master.css";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
 
 export default function S3AvatarUpload({ signedIn }) {
   const [filename, setFilename] = React.useState(undefined);
+  const [status, setStatus] = React.useState(undefined);
 
   function updateStorage() {
     console.log(filename);
@@ -15,7 +19,10 @@ export default function S3AvatarUpload({ signedIn }) {
       .then((result) => {
         console.log(result);
         updateDatabase(result.key);
-        window.alert("avatar updated");
+        setStatus({
+          message: `Successfully updated avatar`,
+          type: "success",
+        });
       })
       .catch((err) => console.log(err));
   }
@@ -36,7 +43,10 @@ export default function S3AvatarUpload({ signedIn }) {
 
   return (
     <div>
-      <label for="image">{filename ? filename.name : "Choose Avatar"}</label>
+      {status && <SnackBarAlert status={status} setStatus={setStatus} />}
+      <label className="image-label" for="image">
+        {filename ? filename.name : "Choose Avatar"}
+      </label>
       <input
         style={{ display: "none" }}
         id="image"
@@ -44,14 +54,13 @@ export default function S3AvatarUpload({ signedIn }) {
         type="file"
         accept="image/png"
         onChange={(e) => setFilename(e.target.files[0])}
-      />
-      <button
+      />{" "}
+      <AddAPhotoIcon
+        className="photo-icon"
         onClick={() => {
           updateStorage();
         }}
-      >
-        upload
-      </button>
+      ></AddAPhotoIcon>
     </div>
   );
 }

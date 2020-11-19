@@ -1,7 +1,7 @@
 .activity-container {
   border: 2px solid black;
   width: 90%;
-  height: 275px;
+  height: 300px;
   margin: 15px;
   border-radius: 5px;
   background-color: whitesmoke;
@@ -68,4 +68,15 @@
   height: 100%;
   width: 100%;
   border-radius: 500px;
+}
+
+.quick-add {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px;
+}
+
+.add-icon:hover {
+  cursor: pointer;
+  fill: #00bc66;
 }

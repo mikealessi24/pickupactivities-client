@@ -73,7 +73,12 @@ export default function EditorActivity({
         </div>
         <div className="home-activity-content">
           <div className="activity-when-where">
-            <h4 className="host-display">@{activity.host}</h4>
+            <h4
+              style={{ position: "relative", left: "520px" }}
+              className="host-display"
+            >
+              @{activity.host}
+            </h4>
             <Tooltip title="Number of Participants needed" placement="left">
               <div style={{ fontSize: "20px" }}>
                 <span

@@ -69,7 +69,7 @@ export default function ActivityCreator({
 
         <textarea id="info" rows="4" cols="50" />
 
-        <button type="submit">click</button>
+        <button type="submit">Create</button>
       </form>
       {status && <SnackBarAlert status={status} setStatus={setStatus} />}
     </div>

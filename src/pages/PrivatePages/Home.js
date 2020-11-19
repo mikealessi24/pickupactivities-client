@@ -6,6 +6,7 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
 
 export default function Home({
   setSignedIn,
@@ -16,8 +17,9 @@ export default function Home({
   const [s3Avi, setS3Avi] = React.useState("");
   const [activities, setActivities] = React.useState([]);
   const [followingList, setFollowingList] = React.useState([]);
-  const [activityFilter, setActivityFilter] = React.useState("following");
+  const [activityFilter, setActivityFilter] = React.useState("all");
   const [search, setSearch] = React.useState(undefined);
+  const [status, setStatus] = React.useState(undefined);
 
   async function signOut() {
     try {
@@ -87,7 +89,10 @@ export default function Home({
         });
         resp.data[0]
           ? setActivities(resp.data)
-          : alert("No results, try another search");
+          : setStatus({
+              message: `No results, try another search.`,
+              type: "error",
+            });
       } catch (error) {
         console.log(error);
       }
@@ -96,6 +101,7 @@ export default function Home({
 
   return (
     <div className="main-page">
+      {status && <SnackBarAlert status={status} setStatus={setStatus} />}
       <div className="header">
         <Button onClick={() => signOut()}>Sign out</Button>
       </div>
@@ -105,8 +111,14 @@ export default function Home({
             <div className="avi-cont">
               <img src={s3Avi} alt="avatar image" />
             </div>
+            <h3
+              style={{
+                textShadow: "2px 2px white",
+              }}
+            >
+              @{signedIn.username}
+            </h3>
             <div className="user-actions">
-              {/* could bring up all activities/games in any location */}
               <Button onClick={() => navigate("/home")}>Home</Button>
               <Button onClick={() => navigate("explore")}>Explore</Button>
               <Button onClick={() => navigate("/profile")}>Profile</Button>
@@ -177,10 +189,10 @@ export default function Home({
               <h3 style={{ fontSize: "22px" }}>
                 <img src="/addressBook.png" /> Following
               </h3>
+              <hr style={{ width: "95%" }}></hr>
               <div style={{ width: "100%" }}>
                 {followingList.map((following) => (
                   <>
-                    <hr style={{ width: "95%" }}></hr>
                     <div
                       style={{ marginLeft: "10px" }}
                       onClick={() => getUserProfile(following.beingFollowed)}

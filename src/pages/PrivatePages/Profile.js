@@ -160,6 +160,7 @@ export default function Profile({ setSignedIn, signedIn }) {
               signedIn={signedIn}
               setClicked={setClicked}
               s3Avi={s3Avi}
+              currentUser={currentUser}
             />
           </div>
         )}
@@ -184,13 +185,13 @@ export default function Profile({ setSignedIn, signedIn }) {
                         onClick={() => setFilter("host")}
                         className="current-filter"
                       >
-                        Hosting
+                        Host
                       </h4>
                       <h4
                         onClick={() => setFilter("participant")}
                         className="table-filter"
                       >
-                        Participating
+                        Participant
                       </h4>{" "}
                     </>
                   ) : (
@@ -200,13 +201,13 @@ export default function Profile({ setSignedIn, signedIn }) {
                         onClick={() => setFilter("host")}
                         className="table-filter"
                       >
-                        Hosting
+                        Host
                       </h4>
                       <h4
                         onClick={() => setFilter("participant")}
                         className="current-filter"
                       >
-                        Participating
+                        Participant
                       </h4>{" "}
                     </>
                   )}
@@ -225,7 +226,7 @@ export default function Profile({ setSignedIn, signedIn }) {
                   {reserver === false ? (
                     <>
                       <div className="activity-actions">
-                        <div className="add-partic">
+                        {/* <div className="add-partic">
                           <Tooltip title="Add participants" position="top">
                             <img
                               src="/addUser.png"
@@ -233,7 +234,7 @@ export default function Profile({ setSignedIn, signedIn }) {
                               onClick={() => setReserver(true)}
                             />
                           </Tooltip>
-                        </div>
+                        </div> */}
                         <div>
                           <Button onClick={() => editAct()}>
                             <EditIcon />

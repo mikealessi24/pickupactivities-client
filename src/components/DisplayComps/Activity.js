@@ -5,6 +5,7 @@ import { navigate } from "@reach/router";
 import FormatTime from "../../components/InputComps/FormatTime";
 import FormatAddress from "../../components/InputComps/FormatAddress";
 import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
+import AddIcon from "@material-ui/icons/Add";
 
 export default function Activity({
   activity,
@@ -147,21 +148,33 @@ export default function Activity({
             <FormatAddress activity={activity} />
           </div>
         </div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            reserve(e.target.elements.counter.value);
-          }}
-        >
-          <select name="counter" id="counter">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <button type="submit">reserve</button>
-        </form>
+        <br />
+        <div className="quick-add">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              reserve(e.target.elements.counter.value);
+            }}
+          >
+            <select
+              style={{ position: "relative", bottom: "5px" }}
+              name="counter"
+              id="counter"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <button
+              style={{ border: "none", backgroundColor: "none" }}
+              type="submit"
+            >
+              <AddIcon className="add-icon" />
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );

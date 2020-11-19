@@ -104,7 +104,7 @@ export default function ActivMap({
                     <InfoWindow>
                       <div>
                         <h3>{location.title}</h3>
-                        <p>{location.host}</p>
+                        <p>@{location.host}</p>
                         <p>{infoAddress}</p>
                       </div>
                     </InfoWindow>
@@ -125,12 +125,6 @@ export default function ActivMap({
             </>
           );
         })}
-        <Marker
-          position={{ lat: 32.776566, lng: -79.930923 }}
-          icon={{
-            url: "/CurrentLocationIcon.svg",
-          }}
-        />
       </GoogleMap>
     </>
   );

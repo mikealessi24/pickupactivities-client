@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
-import Axios from "axios";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -83,29 +83,18 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
                   setSignedIn(currentUser);
                   console.log("outside create");
 
-                  setTimeout(function () {
-                    navigate("/home");
-                  }, 2000);
-
                   const pic = randomPic();
-                  await Axios.post("http://localhost:4000/create-user", {
-                    token: idToken,
-                    avatar: pic,
-                  });
-                  console.log("hello");
-                  setSignedIn(currentUser);
-
-                  //   await axios
-                  //     .post("http://localhost:4000/create-user", {
-                  //       token: idToken,
-                  //       avatar: "defaultAvatar/goldenRet.png",
-                  //     })
-                  //     .then(() => {
-                  //       console.log("never gets here");
-                  //       setSignedIn(currentUser);
-                  //       navigate("/home");
-                  //     })
-                  //     .catch((error) => console.log("ERROR", error));
+                  await axios
+                    .post("http://localhost:4000/create-user", {
+                      token: idToken,
+                      avatar: pic,
+                    })
+                    .then(() => {
+                      console.log("never gets here");
+                      setSignedIn(currentUser);
+                      navigate("/home");
+                    })
+                    .catch((error) => console.log("ERROR", error));
                 }
               } catch (error) {
                 console.log("error confirming sign up", error);

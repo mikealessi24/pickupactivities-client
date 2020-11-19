@@ -64,7 +64,7 @@ export default function ActivityUpdater({
           cols="50"
           onChange={(e) => setEditInfo(e.target.value)}
         />
-        <button type="submit">update</button>
+        <button type="submit">Update</button>
       </form>
     </div>
   );

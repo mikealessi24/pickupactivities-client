@@ -3,8 +3,11 @@ import { Button } from "@material-ui/core";
 import S3AvatarUpload from "../../components/InputComps/S3AvatarUpload";
 import axios from "axios";
 import "../../style/master.css";
+import SnackBarAlert from "../../components/DisplayComps/SnackBarAlert";
 
 export default function EditProfile({ signedIn, setClicked, s3Avi }) {
+  const [status, setStatus] = React.useState(undefined);
+
   async function saveChanges(e) {
     try {
       e.preventDefault();
@@ -19,10 +22,15 @@ export default function EditProfile({ signedIn, setClicked, s3Avi }) {
         about,
       });
       console.log(resp);
+
       setClicked(false);
+      setStatus({
+        message: `Successfully updated profile`,
+        type: "success",
+      });
       setTimeout(function () {
         window.location.reload(true);
-      }, 505);
+      }, 1000);
     } catch (error) {
       console.log(error);
     }
@@ -48,8 +56,12 @@ export default function EditProfile({ signedIn, setClicked, s3Avi }) {
           </div>
           <div classname="actions">
             <label>
-              About:
-              <textarea id="about" />
+              <textarea
+                id="about"
+                rows="3"
+                cols="30"
+                placeholder="about me..."
+              />
             </label>
           </div>
           <S3AvatarUpload signedIn={signedIn} />
@@ -57,6 +69,7 @@ export default function EditProfile({ signedIn, setClicked, s3Avi }) {
           <Button type="submit">Save Profile</Button>
           <Button onClick={() => setClicked(false)}>Cancel</Button>
         </form>
+        {status && <SnackBarAlert status={status} setStatus={setStatus} />}
       </div>
     </>
   );
