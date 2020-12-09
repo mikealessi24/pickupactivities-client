@@ -85,10 +85,13 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
 
                   const pic = randomPic();
                   await axios
-                    .post("http://localhost:4000/create-user", {
-                      token: idToken,
-                      avatar: pic,
-                    })
+                    .post(
+                      "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/create-user",
+                      {
+                        token: idToken,
+                        avatar: pic,
+                      }
+                    )
                     .then(() => {
                       console.log("never gets here");
                       setSignedIn(currentUser);

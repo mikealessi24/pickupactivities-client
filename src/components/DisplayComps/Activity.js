@@ -28,7 +28,7 @@ export default function Activity({
         const token = signedIn.signInUserSession.idToken.jwtToken;
         const activityId = activity.id;
         const resp = await axios.post(
-          "http://localhost:4000/get-participant-count",
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-participant-count",
           {
             token,
             activityId,
@@ -44,10 +44,13 @@ export default function Activity({
       const user = activity.host;
       const token = signedIn.signInUserSession.idToken.jwtToken;
       try {
-        const resp = await axios.post("http://localhost:4000/get-s3-pic", {
-          token,
-          user,
-        });
+        const resp = await axios.post(
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic",
+          {
+            token,
+            user,
+          }
+        );
         setActivityAvatar(resp.data);
       } catch (error) {
         console.log(error);
@@ -84,11 +87,14 @@ export default function Activity({
       const token = signedIn.signInUserSession.idToken.jwtToken;
       const activityId = activity.id;
       const counter = count;
-      const resp = await axios.post("http://localhost:4000/add-participant", {
-        token,
-        activityId,
-        counter,
-      });
+      const resp = await axios.post(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/add-participant",
+        {
+          token,
+          activityId,
+          counter,
+        }
+      );
       console.log(resp);
       setStatus({
         message: `Successfully reserved ${counter} spots`,

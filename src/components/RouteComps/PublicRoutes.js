@@ -12,8 +12,7 @@ export default function PublicRoutes({ setSignedIn }) {
   return (
     <div>
       <Router>
-        <Landing path="/" />
-        <SignIn2 path="signin" setSignedIn={setSignedIn} />
+        <SignIn2 path="/" setSignedIn={setSignedIn} />
         <SignUp
           path="signup"
           setUsername={setUsername}

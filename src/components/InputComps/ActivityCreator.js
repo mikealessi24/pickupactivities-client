@@ -27,16 +27,19 @@ export default function ActivityCreator({
       const latitude = lat;
       const longitude = long;
 
-      await axios.post("http://localhost:4000/create-activity", {
-        token,
-        title,
-        info,
-        numParticipants,
-        date,
-        time,
-        latitude,
-        longitude,
-      });
+      await axios.post(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/create-activity",
+        {
+          token,
+          title,
+          info,
+          numParticipants,
+          date,
+          time,
+          latitude,
+          longitude,
+        }
+      );
       setStatus({ message: "Successfully created activity", type: "success" });
       setTimeout(function () {
         navigate("/home");

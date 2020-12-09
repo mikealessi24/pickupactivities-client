@@ -43,7 +43,7 @@ export default function Profile({ setSignedIn, signedIn }) {
       const token = signedIn.signInUserSession.idToken.jwtToken;
       const activityId = selected;
       const resp = await axios.post(
-        "http://localhost:4000/delete-active-post",
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/delete-active-post",
         {
           token,
           activityId,
@@ -67,11 +67,14 @@ export default function Profile({ setSignedIn, signedIn }) {
       const token = signedIn.signInUserSession.idToken.jwtToken;
       const activityId = selected;
       const counter = count;
-      const resp = await axios.post("http://localhost:4000/add-participant", {
-        token,
-        activityId,
-        counter,
-      });
+      const resp = await axios.post(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/add-participant",
+        {
+          token,
+          activityId,
+          counter,
+        }
+      );
       setStatus({
         message: `Successfully reserved ${count} spots`,
         type: "success",
@@ -93,9 +96,12 @@ export default function Profile({ setSignedIn, signedIn }) {
       try {
         console.log("getting user");
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post("http://localhost:4000/get-user", {
-          token,
-        });
+        const response = await axios.post(
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-user",
+          {
+            token,
+          }
+        );
         setCurrentUser(response.data[0]);
       } catch (error) {
         console.log(error);
@@ -105,9 +111,12 @@ export default function Profile({ setSignedIn, signedIn }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
-          token,
-        });
+        const avatar = await axios.post(
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic",
+          {
+            token,
+          }
+        );
         setS3Avi(avatar.data);
       } catch (error) {
         console.log(error);

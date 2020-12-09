@@ -29,7 +29,7 @@ export default function Edit({ signedIn, selected }) {
         const token = signedIn.signInUserSession.idToken.jwtToken;
         const activityId = selected;
         const resp = await axios.post(
-          "http://localhost:4000/get-specific-activity",
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-specific-activity",
           {
             token,
             activityId,
@@ -60,7 +60,7 @@ export default function Edit({ signedIn, selected }) {
 
     try {
       const resp = await axios.post(
-        "http://localhost:4000/update-active-post",
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/update-active-post",
         {
           token,
           activityId,

@@ -15,12 +15,15 @@ export default function EditProfile({ signedIn, setClicked, s3Avi }) {
       const firstname = e.target.elements.first.value;
       const lastname = e.target.elements.last.value;
       const about = e.target.elements.about.value;
-      const resp = await axios.post("http://localhost:4000/update-user", {
-        token,
-        firstname,
-        lastname,
-        about,
-      });
+      const resp = await axios.post(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/update-user",
+        {
+          token,
+          firstname,
+          lastname,
+          about,
+        }
+      );
       console.log(resp);
 
       setClicked(false);

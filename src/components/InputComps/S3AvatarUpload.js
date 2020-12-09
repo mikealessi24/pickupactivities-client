@@ -31,10 +31,13 @@ export default function S3AvatarUpload({ signedIn }) {
     console.log("in");
     try {
       const token = signedIn.signInUserSession.idToken.jwtToken;
-      const resp = await axios.put("http://localhost:4000/update-avatar", {
-        token,
-        avatar: avatarpath,
-      });
+      const resp = await axios.put(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/update-avatar",
+        {
+          token,
+          avatar: avatarpath,
+        }
+      );
       console.log("success", resp);
     } catch (error) {
       console.log(error);

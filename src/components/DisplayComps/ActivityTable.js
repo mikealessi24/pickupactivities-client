@@ -35,8 +35,8 @@ export default function ActivityTable({ signedIn, setSelected, user, filter }) {
     (async function () {
       const route =
         filter === "host"
-          ? "http://localhost:4000/get-all-hosted"
-          : "http://localhost:4000/get-all-participated";
+          ? "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-all-hosted"
+          : "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-all-participated";
       console.log("THE USER", user);
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;

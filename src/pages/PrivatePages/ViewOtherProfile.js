@@ -25,10 +25,13 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const resp = await axios.post("http://localhost:4000/get-other-user", {
-          token,
-          user,
-        });
+        const resp = await axios.post(
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-other-user",
+          {
+            token,
+            user,
+          }
+        );
         console.log("DATA FOR USER", resp.data);
         setUserInfo(resp.data[0]);
       } catch (error) {
@@ -39,10 +42,13 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
-          token,
-          user,
-        });
+        const avatar = await axios.post(
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic",
+          {
+            token,
+            user,
+          }
+        );
         setS3Avi(avatar.data);
       } catch (error) {
         console.log(error);
@@ -53,7 +59,7 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
         const following = await axios.post(
-          "http://localhost:4000/get-following",
+          "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/get-following",
           {
             token,
           }
@@ -70,10 +76,13 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
   async function follow() {
     try {
       const token = signedIn.signInUserSession.idToken.jwtToken;
-      const resp = await axios.post("http://localhost:4000/follow", {
-        token,
-        user,
-      });
+      const resp = await axios.post(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/follow",
+        {
+          token,
+          user,
+        }
+      );
       console.log(resp);
       setIsFollowed(true);
     } catch (error) {
@@ -84,10 +93,13 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
   async function unfollow() {
     try {
       const token = signedIn.signInUserSession.idToken.jwtToken;
-      const resp = await axios.post("http://localhost:4000/unfollow", {
-        token,
-        user,
-      });
+      const resp = await axios.post(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/unfollow",
+        {
+          token,
+          user,
+        }
+      );
       console.log(resp);
       setIsFollowed(false);
     } catch (error) {
@@ -100,11 +112,14 @@ export default function ViewOtherProfile({ setSignedIn, signedIn, user }) {
       const token = signedIn.signInUserSession.idToken.jwtToken;
       const activityId = selected;
       const counter = count;
-      const resp = await axios.post("http://localhost:4000/add-participant", {
-        token,
-        activityId,
-        counter,
-      });
+      const resp = await axios.post(
+        "https://cdp1j6hon6.execute-api.us-east-1.amazonaws.com/dev/add-participant",
+        {
+          token,
+          activityId,
+          counter,
+        }
+      );
       console.log(resp);
       alert(`${count} spots reserved`);
       window.location.reload(true);
